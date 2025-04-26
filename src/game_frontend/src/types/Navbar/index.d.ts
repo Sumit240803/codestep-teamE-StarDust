@@ -1,0 +1,4 @@
+interface NavbarProps {
+    profitPerHour?: number;
+  }
+  

@@ -1,0 +1,99 @@
+.lore-container {
+    @apply min-h-screen bg-black text-white p-4 relative overflow-hidden;
+  }
+  
+  .lore-main {
+    @apply relative w-full mt-10 space-y-12 flex flex-col items-center justify-center;
+  }
+  
+  .lore-header {
+    @apply space-y-4 w-full flex justify-center items-center z-10;
+  }
+  
+  .header-content {
+    @apply flex flex-col justify-center items-center;
+  }
+  
+  .header-title {
+    @apply text-4xl font-bold mb-4 flex items-center gap-2;
+  }
+  
+  .header-description {
+    @apply text-gray-300 w-52;
+  }
+  
+  .rotating-image-container {
+    @apply flex items-center justify-center top-10 my-8 absolute z-0;
+  }
+  
+  .rotating-image {
+    @apply rounded-full;
+  }
+  
+  .setting-section {
+    @apply mt-10 w-full max-w-xl;
+  }
+  
+  .setting-title {
+    @apply text-3xl font-bold mb-4;
+  }
+  
+  .setting-description {
+    @apply text-gray-300;
+  }
+  
+  .stardust-section {
+    @apply space-y-4 w-full max-w-xl;
+  }
+  
+  .stardust-content {
+    @apply flex flex-col w-full;
+  }
+  
+  .stardust-title {
+    @apply font-bold text-4xl mb-4 w-60 mx-auto flex justify-start items-center gap-2;
+  }
+  
+  .stardust-description {
+    @apply text-gray-300 w-60 mx-auto;
+  }
+  
+  .commander-section {
+    @apply space-y-4 w-full max-w-xl;
+  }
+  
+  .commander-title {
+    @apply text-3xl mb-4 font-bold;
+  }
+  
+  .commander-description {
+    @apply text-gray-300;
+  }
+  
+  .challenges-section {
+    @apply space-y-4 w-full max-w-xl;
+  }
+  
+  .challenges-content {
+    @apply flex flex-col w-full;
+  }
+  
+  .challenges-title {
+    @apply font-bold text-4xl mb-4 w-60 mx-auto flex justify-start items-center gap-2;
+  }
+  
+  .challenges-description {
+    @apply text-gray-300 w-60  mx-auto;
+  }
+  
+  .uncovering-section {
+    @apply space-y-4 w-full max-w-xl;
+  }
+  
+  .uncovering-title {
+    @apply text-3xl mb-4 font-bold;
+  }
+  
+  .uncovering-description {
+    @apply text-gray-300;
+  }

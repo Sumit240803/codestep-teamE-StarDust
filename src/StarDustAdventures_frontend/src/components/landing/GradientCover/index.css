@@ -1,0 +1,24 @@
+.gradient-cover{
+    @apply  md:min-h-screen h-auto w-screen relative bg-black flex flex-col justify-between lg:gap-32;
+    scroll-snap-type: y mandatory;
+}
+
+.right-purple-pattern{
+    @apply absolute top-0 lg:-right-5 w-1/2 h-1/2 lg:blur-[7.5px] opacity-25 ;
+    background: rgb(173,63,251);
+    background: radial-gradient(circle, rgba(173,63,251,1) 0%, rgba(1,1,1,1) 70%, rgba(6,6,6,1) 100%);
+}
+
+.square-purple{
+    @apply object-contain object-center bg-repeat h-full w-full contrast-150;
+}
+
+.left-blue-pattern{
+    @apply absolute bottom-1/4 translate-y-1/4 lg:-left-5 w-1/2 h-1/2 lg:blur-[7.5px] opacity-25 z-[5];
+    background: rgb(31, 1, 100);
+    background: radial-gradient(circle, rgba(31,1,100,1) 0%, rgba(1,1,1,1) 70%, rgba(6,6,6,1) 100%);
+}
+
+.square-blue{
+    @apply object-contain object-center bg-repeat h-full w-full contrast-150 ;
+}

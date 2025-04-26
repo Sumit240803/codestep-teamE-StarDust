@@ -1,0 +1,96 @@
+.invite-friends-container {
+  @apply min-h-screen text-white flex relative;
+}
+
+.invite-friends-background {
+  @apply absolute inset-0 overflow-hidden;
+}
+
+.invite-friends-content {
+  @apply relative z-10 w-full max-w-4xl mx-auto space-y-8 px-4;
+}
+
+/* Header styles */
+.invite-friends-header {
+  @apply text-center space-y-4;
+}
+
+.invite-friends-title {
+  @apply text-4xl font-bold tracking-wider font-coin;
+}
+
+.invite-friends-subtitle {
+  @apply text-gray-300 font-coin;
+}
+
+/* Invite buttons section */
+.invite-buttons-container {
+  @apply flex  flex-wrap md:flex-nowrap  justify-center items-center;
+}
+
+.tag-content {
+  @apply flex flex-row justify-start px-4   lg:min-w-[440px] items-center;
+}
+
+.tag-image-container {
+  @apply flex items-center;
+}
+
+.tag-info-container {
+  @apply flex flex-col w-[80vw] md:w-full pl-2 py-2;
+}
+
+.tag-title {
+  @apply text-sm font-coin;
+}
+
+.tag-reward-container {
+  @apply flex flex-row gap-x-2 items-center;
+}
+
+.reward-dot {
+  @apply flex justify-center items-center text-yellow-400;
+}
+
+.reward-amount {
+  @apply text-sm text-yellow-500;
+}
+
+.reward-description {
+  @apply text-xs;
+}
+
+/* Referral button container */
+.referral-button-container {
+  @apply w-full flex justify-center items-center text-sm;
+}
+.referral-button{
+  @apply !text-sm md:!text-2xl lg:!text-4xl ;
+}
+
+
+/* Bottom buttons container */
+.bottom-buttons-container {
+  @apply flex  flex-row justify-center items-center space-x-10 ;
+}
+
+
+/* Image styles */
+.winner-image {
+  @apply w-10 h-10;
+}
+
+.ufo-image {
+  @apply w-5 h-5;
+}
+
+.copy-image {
+
+  @apply w-[20px] h-[20px] md:w-[30px] md:h-[30px] lg:w-[45px] lg:h-[45px] p-1;
+
+}
+
+.text-responsive{
+  @apply !text-sm md:!text-2xl lg:!text-4xl
+}
+

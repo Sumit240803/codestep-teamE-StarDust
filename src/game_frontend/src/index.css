@@ -1,0 +1,103 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+
+/* CSS Reset */
+/* 1. Use a more-intuitive box-sizing model */
+*, *::before, *::after {
+  box-sizing: border-box;
+  /* outline: 2px solid red; */
+  
+}
+
+/* 2. Remove default margin */
+* {
+  margin: 0;
+  line-height: calc(1em + 0.5rem);
+}
+
+body {
+  /* 4. Improve text rendering */
+  -webkit-font-smoothing: antialiased;
+  cursor: url('/assets/images/cursor.png') 16 16, auto !important;
+}
+
+/* 5. Improve media defaults */
+img, picture, video, canvas, svg {
+  display: block;
+  max-width: 100%;
+}
+
+/* 6. Inherit fonts for form controls */
+input, button, textarea, select {
+  font: inherit;
+  cursor: url('/assets/images/cursor-click.png') 16 16, auto !important;
+}
+
+/* 7. Avoid text overflows */
+p, h1, h2, h3, h4, h5, h6 {
+  overflow-wrap: break-word;
+}
+
+/* 8. Improve line wrapping */
+p {
+  text-wrap: pretty;
+}
+h1, h2, h3, h4, h5, h6 {
+  text-wrap: balance;
+}
+
+/*
+  9. Create a root stacking context
+*/
+#root, #__next {
+  isolation: isolate;
+}
+
+@font-face {
+    font-family: 'SF Pro Display';
+    font-style: normal;
+    src: url('/assets/fonts/SFPRODISPLAYREGULAR.OTF');
+}
+
+  @font-face {
+    font-family: 'Coin Ding Dong';
+    font-style: normal;
+    src: url('/assets/fonts/CoinDingDong.ttf');
+}
+
+
+*{
+  @apply p-0 m-0 box-border
+}
+
+html{
+  scroll-behavior: smooth;
+  scrollbar-width: none;
+}
+
+body {
+    overflow-x: hidden;
+    min-height: 100vh;
+    font-family: 'SF-Pro-Display', sans-serif;
+    min-width: 100vw;
+    height: auto;
+    color: white;
+  }
+.app{
+  @apply min-h-screen bg-red-200
+}
+.page{
+  @apply min-h-screen h-auto overflow-x-hidden bg-black text-white
+}
+.exchange{
+  @apply min-h-screen h-auto overflow-x-hidden bg-no-repeat relative;
+  background-attachment : 'scroll';
+  background-position: top center, bottom center;
+  background-size: cover, cover;
+  background-blend-mode: difference;
+}
+.overlay-black{
+  @apply z-10 w-screen h-[100%] bg-[rgb(0,0,0,0.65)] absolute top-0 min-h-screen
+}

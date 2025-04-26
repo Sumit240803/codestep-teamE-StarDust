@@ -1,0 +1,29 @@
+.footer{
+    @apply w-screen lg:min-h-[100px] min-h-[150px] bg-transparent flex flex-col lg:justify-between justify-center items-start gap-3 lg:px-12 px-6 py-2;
+}
+
+.social-icons-container{
+    @apply flex items-center lg:justify-around justify-between lg:gap-3 lg:w-auto w-full;
+}
+
+.social-icons-container-text{
+    @apply font-sf-pro-display md:text-lg text-base;
+}
+
+.footer-title{
+    @apply font-coin text-2xl block md:hidden;
+}
+
+.footer-text{
+    @apply font-coin md:text-lg text-xs;
+}
+
+.social-icons{
+    @apply flex flex-row items-center justify-between lg:gap-2 gap-3 text-white text-3xl;
+}
+
+@media screen and (min-width: 1024px){
+    .footer{
+        background: linear-gradient(97.51deg, rgba(255, 255, 255, 0) -20.85%, rgba(153, 153, 153, 0.17) 86.38%);
+    }
+}

@@ -1,0 +1,8 @@
+.card-container-header {
+    @apply flex justify-center items-center;
+  }
+  
+  .card-title {
+    @apply font-coin text-5xl;
+   
+  }

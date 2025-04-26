@@ -1,0 +1,12 @@
+.tokenpanel-body,
+.tokenpanel,
+.tokenpanel-body > tr {
+  @apply w-full lg:w-[35vw];
+}
+.tokenpanel-body > tr {
+  @apply flex justify-between items-center gap-2 font-coin  md:text-xl lg:text-2xl pt-4;
+}
+
+/* .withdrawal-button {
+  @apply hidden md:block lg:w-[35vw] text-2xl mt-4;
+} */

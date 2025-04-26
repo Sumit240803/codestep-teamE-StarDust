@@ -1,0 +1,23 @@
+.thank-you-wrapper {
+    background-color: blue; /* Added here opacity to background blue */
+    box-shadow:
+        /* Inner blue layer with 50% opacity */ 30px 0 blue,
+      /*  right shadow */ -30px 0 blue,
+      /*  left shadow */ 0 -30px blue,
+      /*  top shadow */ 0 30px blue,
+      /*  bottom shadow rgba(0, 0, 255, 0.5) */
+        /* Middle white layer */ 60px 0 white,
+      -60px 0 white, 0 -60px white, 0 60px white,
+      /* White spread */ 0 0 0 30px white,
+      /* Outer red-orange layer  0px 0 #ff4500, -0px 0 #ff4500, 0 0px #ff4500, */
+      0 -0px #ff4500;
+    padding: 0.4em 1.3em;
+  }
+  
+  .thank-you-container {
+    @apply w-full h-screen flex justify-center bg-transparent items-center;
+  }
+  
+  .thank-you-wrapper {
+    @apply h-auto min-h-[223px] min-w-[562px] w-auto relative bg-opacity-50;
+  }

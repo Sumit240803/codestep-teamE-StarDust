@@ -1,0 +1,77 @@
+.sidebar-tab-container {
+    @apply flex flex-col justify-center items-center py-4 md:px-2 min-w-[17vw] md:min-w-[80px] no-underline;
+}
+
+.sidebar-title {
+    @apply font-sf-pro-display text-xs;
+}
+
+/* For large screens - original box shadow */
+@media (min-width: 769px) {
+    .sidebar-tab-container:active,
+    .sidebar-tab-container:hover,
+    .sidebar-tab-container:visited,
+    .sidebar-tab-container:focus,
+    .sidebar-tab-container[aria-selected="true"] {
+        @apply bg-light-grey text-white font-bold !w-6 no-underline;
+        text-decoration: none !important;  /* Added !important to ensure no underline */
+        background: #5A5A5A;
+        box-shadow: 
+            /* left side */
+            -14px 0 0 -0px #5A5A5A,
+            -14px 0 0 1px #EADFDE,
+            /* CENTER */
+            1px 0 0 0px #5A5A5A,
+            10px 0 0 -4px #5A5A5A,
+            20px 0 0 -9px #5A5A5A,
+            30px 0 0 -14px #5A5A5A,
+            /* for white line */
+            1px 0 0 1px #EADFDE,
+            10px 0 0 -3px #EADFDE,
+            20px 0 0 -8px #EADFDE,
+            30px 0 0 -13px #EADFDE,
+            /* LEFT */
+            2px 0px 0 -1px #EADFDE,
+            /* RIGHT */
+            -2px 0px 0 -1px #EADFDE,
+            /* TOP */
+            0px -2px 0 -1px #EADFDE;
+    }
+}
+
+/* For small and medium screens - rotated box shadow */
+@media (max-width: 768px) {
+    .sidebar-tab-container:active,
+    .sidebar-tab-container:hover,
+    .sidebar-tab-container:visited,
+    .sidebar-tab-container:focus,
+    .sidebar-tab-container[aria-selected="true"] {
+        @apply bg-light-grey h-10 text-white font-bold no-underline ;
+        text-decoration: none !important; 
+        background: #5A5A5A;
+        box-shadow: 
+            /* left side */
+            0 19px 0 -0px #5A5A5A,
+            0 17px 0 1px #EADFDE,
+            /* CENTER */
+            0 -1px 0 0px #5A5A5A,
+            0 -10px 0 -4px #5A5A5A,
+            0 -20px 0 -9px #5A5A5A,
+            0 -30px 0 -14px #5A5A5A,
+            /* for white line */
+            0 -1px 0 1px #EADFDE,
+            0 -10px 0 -3px #EADFDE,
+            0 -20px 0 -8px #EADFDE,
+            0 -30px 0 -13px #EADFDE,
+            /* LEFT */
+            2px 0px 0 -1px #EADFDE,
+            /* RIGHT */
+            -2px 0px 0 -1px #EADFDE,
+            /* TOP */
+            0 2px 0 -1px #EADFDE,
+            /* left */
+            -2px 0 0 -1px #EADFDE,
+            /* bottom */
+            0 -2px 0 -1px #EADFDE;
+    }
+}

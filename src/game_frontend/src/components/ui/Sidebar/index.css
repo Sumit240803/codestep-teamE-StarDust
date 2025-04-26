@@ -1,0 +1,19 @@
+/* Desktop sidebar */
+.sidebar {
+    @apply fixed w-auto min-h-screen h-auto left-[-12px] top-0 flex flex-col justify-center z-50;
+}
+
+/* Base styles for sidebar children */
+.sidebar-children {
+    @apply min-h-[400px] min-w-28 bg-[#343434] rounded-tr-lg rounded-br-lg ml-2 flex flex-col justify-center items-center gap-2;
+}
+
+/* Mobile styles for sidebar */
+@media (max-width: 768px) {
+    .sidebar {
+        @apply fixed w-full min-h-0 h-auto bottom-0 top-auto left-0 flex flex-row justify-evenly z-50;
+    }
+    .sidebar-children {
+        @apply w-full min-h-[80px] flex-row bg-[#343434] justify-center items-center rounded-t-2xl md:rounded-t-3xl  ml-0;
+    }
+}

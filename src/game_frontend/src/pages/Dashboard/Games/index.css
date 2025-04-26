@@ -1,0 +1,16 @@
+.games-container{
+    @apply flex justify-center items-center h-screen w-full;
+}
+.games-title{
+    @apply font-coin text-5xl;
+}
+.mine-card-container {
+    @apply h-full w-full flex justify-center ;
+  }
+  
+  .mine-card-inner {
+    @apply w-[80%];
+  }
+  .min-card-tab {
+    @apply flex;
+  }

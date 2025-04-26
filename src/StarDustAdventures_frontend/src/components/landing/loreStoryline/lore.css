@@ -1,0 +1,82 @@
+.lore-sec{
+    @apply w-screen min-h-screen relative flex flex-col py-10 items-center overflow-x-hidden
+}
+.ls-title{
+    @apply text-6xl font-semibold font-coin mb-7 z-10
+}
+.ls-text{
+    @apply text-xl text-center mt-4 mb-7 font-sf-pro-display z-10
+}
+.ls-main{
+    @apply w-screen flex flex-col items-center justify-center relative mb-20
+}
+.ls-rotating-astro{
+    @apply w-[50vw] z-0 
+}
+.lsm-first{
+    @apply z-10 absolute top-[6%] flex w-full justify-center
+}
+.lsm-second{
+    @apply z-10 absolute w-[70%] flex items-center justify-between 
+}
+.lsm-third{
+    @apply z-10 absolute bottom-[10%] w-[50%] flex items-center justify-between
+}
+.lsm-text-item{
+    @apply flex flex-col items-center w-[300px] 
+}
+.lsm-ti-title {
+    @apply mb-3 text-3xl font-semibold text-center text-white;
+}
+
+.lsm-ti-text{
+    @apply w-[250px] text-center font-medium text-lg text-white;
+}
+.hstc-title1, .hstc-title {
+    background: linear-gradient(90deg, #FFFFFF 0%, #999999 100%);
+    background-clip: text;
+    -webkit-background-clip: text; 
+    color: transparent;
+    width:auto;
+  }
+@media screen and (max-width: 800px) {
+    .lsm-first , .lsm-second , .lsm-third {
+        display: block ;
+        position: sticky;
+        margin-left  : auto  ; 
+        margin-right:  auto ;
+        width: 100%;
+        
+    }
+    .ls-main{
+        display: grid;
+        
+    }
+    .ls-main img{
+        width: 100vw;
+        
+    }
+    .lsm-text-item{
+        margin-top: 100px;
+    }
+    .lore-sec{
+        text-align: center;
+        transform: translateY(-60px)
+    }
+    .ls-text{
+        width: 80%;
+    }
+    .lsm-second{
+        margin-bottom: 100px;
+    }
+    .lsm-side-right{
+        transform: translateX(20px);
+    }
+    .lsm-side-left{
+        transform: translateX(-1px);
+    }
+     .left-blue-pattern{
+        display:none;
+} 
+  
+}

@@ -1,0 +1,29 @@
+.two-step-border {
+    margin: 8px auto;
+    display: inline-block;
+    text-align: center;
+    padding: 0.4em 1.3em;
+    box-shadow: 
+    
+        
+        
+        /* CENTER */
+        0 0 0 10px white,
+        /* LEFT */
+        32px 0 0 -10px white,
+        /* RIGHT */
+        -32px 0px 0 -10px white,
+        /* BOTTOM */
+        0px 20px 0 0 white,
+        /* TOP */
+        0px -20px 0 0 white
+
+}
+
+.main-value{
+    @apply flex justify-center items-center
+}
+
+.two-step-border {
+    @apply  min-h-16 bg-blue-500/50 min-w-[550px]
+}

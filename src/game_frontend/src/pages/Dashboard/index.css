@@ -1,0 +1,35 @@
+/* .progressbar-container{
+    @apply fixed top-1/2 right-10 -translate-y-1/2  ;
+}
+
+@media (min-width: 396px) and (max-width: 768px) {
+    .progressbar-container {
+        @apply fixed bottom-[0px] w-24 h-24 rotate-90 mr-16  translate-y-[140px] ;
+    }
+}
+@media (min-width: 396px) and (max-width: 768px) {
+    .progressbar-container {
+        @apply fixed bottom-[0px] w-24 h-24 rotate-90 mr-16  translate-y-[140px] ;
+    }
+}
+@media (max-width: 396px) {
+    .progressbar-container {
+        @apply fixed bottom-[0px] w-24 h-24 rotate-90 translate-y-[140px] ;
+    }
+}
+
+.exchange-container {
+    @apply flex flex-col justify-between items-center relative min-h-screen w-1/2 mx-auto;
+}
+
+.exchange-container > section {
+    @apply flex flex-row items-center lg:text-6xl;
+}
+
+.exchange-points{
+    @apply font-bold font-coin;
+}
+
+.click-to-earn{
+    @apply fixed bottom-0 w-full h-full bg-contain bg-no-repeat bg-center;
+} */

@@ -1,0 +1,30 @@
+.main-container {
+  @apply mx-[10vw] mt-5;
+}
+
+.astrouant-img {
+  @apply lg:hidden;
+}
+
+.airdrop-body {
+  @apply grid  grid-cols-1 lg:grid-cols-2 gap-4  relative;
+}
+.spacer {
+  @apply self-stretch bg-white w-0.5;
+}
+.page-title {
+  @apply font-bold text-2xl md:text-3xl lg:text-5xl;
+}
+.main-header {
+  @apply font-coin text-center flex flex-col items-center justify-center gap-4;
+}
+.ufo-container {
+  @apply min-w-6 min-h-6 aspect-square;
+}
+.ufo-container > img {
+  image-rendering: pixelated;
+}
+
+.withdrawal-btn {
+  @apply lg:ml-4 w-[90vw] md:w-[65vw] lg:w-[35vw] !text-sm md:!text-2xl;
+}

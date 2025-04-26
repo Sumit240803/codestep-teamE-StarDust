@@ -1,0 +1,3 @@
+interface ProgressBarProps {
+    initialProgress?: number;
+}

@@ -1,0 +1,17 @@
+.gameplay-card{
+    @apply relative flex flex-col lg:px-3 lg:py-4 justify-start items-center 
+    bg-transparent lg:gap-7 text-white lg:h-[50vh] z-[1] w-auto
+}
+
+.card-title{
+    @apply font-bold text-3xl text-center font-sf-pro-display max-w-[250px]
+}
+
+.card img {
+    @apply rounded-full;
+    image-rendering: pixelated;
+}
+
+.card-description{
+    @apply  font-sf-pro-display lg:max-w-[350px] text-center
+}

@@ -1,0 +1,16 @@
+.modal-container{
+    @apply shadow-md absolute w-[100vw] h-full flex justify-center items-center z-50 bg-black bg-opacity-50 focus:ring-slate-950;
+}
+.modal-container-body{
+    @apply bg-brand-blue shadow-lg rounded-lg min-w-[90vw] md:min-w-[70vw] lg:min-w-[50vw] h-[60vh] md:h-[55vh] lg:h-[65vh] m-auto md:border-8 border-white pt-10;
+}
+
+.modal-close{
+    @apply focus:outline-brand-blue;
+}
+.button-container{
+    @apply  flex flex-col justify-center items-center  gap-y-10 ;
+}
+.wallet-header{
+    @apply w-[80vw] flex justify-between
+}

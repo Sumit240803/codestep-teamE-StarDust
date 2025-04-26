@@ -1,0 +1,12 @@
+.mob-gameplay-container{
+    @apply min-h-screen h-auto relative;
+}
+
+.mob-gameplay-header{
+    @apply relative h-screen min-h-fit flex flex-col justify-center z-[100];
+    scroll-snap-align:center;
+}
+
+.gameplay-mechanics-cards-list{
+    @apply mt-4 flex justify-between items-center w-[300vw]
+}

@@ -1,0 +1,7 @@
+.tab-panel {
+  @apply border-t-2 border-white  m-2 p-2;
+
+}
+.tab {
+  @apply text-center font-coin min-h-[44px] min-w-[160px];
+}

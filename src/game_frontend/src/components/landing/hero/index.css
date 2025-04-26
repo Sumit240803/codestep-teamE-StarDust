@@ -1,0 +1,39 @@
+.hero-sec{
+    @apply w-screen min-h-screen h-screen relative 
+    flex flex-col justify-around items-center 
+    overflow-hidden 
+}
+.hs-top-nav{
+    @apply z-20 relative  bg-[rgb(255,255,255,0.2)]  py-8 flex items-center justify-center w-[98%] rounded-2xl
+}
+.hstp-text{
+    @apply text-4xl font-semibold font-coin
+}
+.hs-text-cont{
+    @apply flex flex-col justify-center items-center gap-5 z-50
+}
+.hstc-title{
+    @apply lg:text-9xl text-6xl xs:text-6xl sm:text-7xl md:text-8xl lg:w-[855px] w-full font-medium text-center mb-6 font-coin
+}
+.hstc-title1{
+    @apply lg:text-9xl text-6xl xs:text-6xl sm:text-7xl md:text-8xl lg:w-[50vw] w-full font-medium text-center mb-0 font-coin
+}
+.play-button{
+    @apply !text-2xl !min-w-[300px] md:!min-w-[400px] w-20 xs:!min-w-40 xs:w-32 xs:!text-3xl md:!text-4xl
+}
+.hstc-text{
+    @apply lg:text-xl text-xs w-1/2 mx-auto text-center text-wrap lg:mt-6 lg:mb-10 mb-5 font-sf-pro-display
+}
+
+.hs-falling-astro{
+    @apply z-20 absolute
+}
+.hs-text-cont2{
+    @apply flex flex-col items-center my-4 text-white z-20
+}
+.hstc2-title{
+    @apply text-6xl font-semibold font-coin mb-7 text-center
+}
+.hstc2-text{
+    @apply text-xl text-center mt-4 mb-7 font-sf-pro-display
+}

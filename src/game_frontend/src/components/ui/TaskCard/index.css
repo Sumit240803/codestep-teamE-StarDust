@@ -1,0 +1,48 @@
+/* Token Icon */
+.token-icon {
+  @apply p-2 rounded-full;
+}
+
+/* Section Styles */
+.section-title {
+  @apply text-white text-sm font-medium text-left mb-2;
+}
+
+.section-content {
+  @apply rounded-lg overflow-hidden mb-6;
+}
+
+/* Task Item Styles */
+.task-item {
+  @apply flex items-center justify-between py-4 px-4 border-b border-gray-400;
+}
+
+.task-item-left {
+  @apply flex items-center gap-3;
+}
+
+.task-item-content {
+  @apply flex flex-col;
+}
+
+.task-item-text {
+  @apply text-white text-sm font-medium;
+}
+
+.task-item-right {
+  @apply flex items-center gap-2;
+}
+
+/* Token Counter Styles */
+.token-counter {
+  @apply flex items-center gap-1;
+}
+
+.token-count {
+  @apply text-yellow-400 text-xs;
+}
+
+/* Chevron Icon arrow (>) */
+.chevron-icon {
+  @apply w-5 h-5 text-gray-400;
+}

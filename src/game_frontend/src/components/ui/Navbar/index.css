@@ -1,0 +1,81 @@
+.header {
+  @apply w-screen py-8 bg-transparent relative;
+}
+.top-nav-bar {
+  @apply w-[85vw] md:w-[90vw] mx-auto bg-transparent p-2;
+  background: rgba(255, 255, 255, 0.25);
+  /* box-shadow: 0 8px 32px 0 rgba( 31, 38, 135, 0.37 ); */
+  backdrop-filter: blur(4px);
+  -webkit-backdrop-filter: blur(4px);
+}
+
+/* Content wrapper */
+.nav-content {
+  @apply flex items-center w-full h-full gap-2 bg-opacity-60;
+}
+
+/* Icon container */
+/* .nav-icon {
+    @apply w-8 h-8;
+  }
+   */
+/* Vertical separator */
+.nav-separator {
+  @apply bg-[#E3DEEA] rounded-lg h-[40px] w-1;
+}
+
+/* Stats container */
+.nav-stats-container {
+  @apply flex flex-row w-full justify-between;
+}
+
+/* Profit statistics section */
+.profit-stats {
+  @apply flex items-center flex-col space-x-1;
+}
+
+.profit-label {
+  @apply text-white;
+}
+
+.profit-value {
+  @apply flex flex-row justify-start w-full;
+}
+
+/* .profit-icon {
+    @apply w-4 h-4;
+  }
+   */
+.profit-amount {
+  @apply text-yellow-400 font-bold;
+}
+
+/* Character icon section */
+/* .character-icon {
+    @apply w-6 h-6;
+  }
+   */
+.character-image {
+  @apply w-full h-full;
+}
+
+.top-nav-bar {
+  /* margin: 9px auto;
+    display: inline-block; */
+  text-align: center;
+  padding: 0.4rem 1.3rem;
+
+  /* First white border layer */
+  box-shadow: 
+    /* Step 1 - Inner white border */ 5px 0 12px transparent,
+    -5px 0 12px transparent, 0 -5px 12px transparent, 0 5px 12px transparent,
+    /* Step 2 - Second #D9CCC1 border */ 10px 0 12px transparent,
+    -10px 0 12px transparent, 0 -10px 12px transparent, 0 10px 12px transparent,
+    0 0 0 5px transparent, /* Step 3 - Third black border */ 15px 0 12px white,
+    -15px 0 12px white, 0 15px 12px white, 0 -15px 12px white,
+    0 -5px 0 5px white, 0 5px 0 5px white, 5px 0 0 5px white, -5px 0 0 5px white,
+    /* Step 4 - Final white border (no blur) */ 20px 0 0 #ffffff,
+    -20px 0 0 #ffffff, 0 -20px 0 #ffffff, 0 20px 0 #ffffff, 10px 0 0 5px #ffffff,
+    -10px 0 0 5px #ffffff, 0 10px 0 5px #ffffff, 0 -10px 0 5px #ffffff,
+    0 0 0 10px #ffffff;
+}

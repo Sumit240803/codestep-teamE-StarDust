@@ -1,0 +1,52 @@
+.game-concept-sec{
+    @apply  flex w-screen items-start justify-center pt-16
+}
+/* left  */
+.gcs-sub-left{
+    @apply flex flex-col items-start justify-between gap-[20vh] font-sf-pro-display
+}
+.gcs-sl-item{
+    @apply flex flex-col items-end
+}
+.gcs-sl-title{
+    @apply mb-3 xl:text-3xl md:text-xl font-semibold text-right
+}
+.gcs-sl-text{
+    @apply xl:w-[350px] text-right font-medium text-lg 
+}
+
+/* right  */
+.gcs-sub-right{
+    @apply flex flex-col items-start justify-between gap-[20vh] font-sf-pro-display
+}
+.gcs-sr-item{
+    @apply flex flex-col items-start 
+}
+.gcs-sr-title{
+    @apply mb-3 xl:text-3xl md:text-xl font-semibold text-left
+}
+.gcs-sr-text{
+    @apply xl:w-[350px] text-left font-medium text-lg
+}
+
+/* center  */
+
+.gcs-sub-center{
+    @apply flex flex-col items-center h-[100%] justify-between xl:mx-20 lg:mx-12 font-sf-pro-display
+}
+.gcs-sc-text-item{
+    @apply flex flex-col items-center mt-20 mb-20
+}
+.gcs-sc-img{
+    @apply w-[25vw] lg:min-w-[350px]
+}
+.gcs-sc-text{
+    @apply xl:w-[400px] text-center font-medium xl:text-lg md:text-base
+}
+.gcs-sc-title{
+    @apply mb-3 xl:text-3xl md:text-xl font-semibold text-center
+}
+.gcs-sc-img {
+    @apply shadow-[0_0_50px_35px_rgba(255,0,0,0.21)] rounded-full;
+    border-radius: 50%; /* Optional: Makes the shadow blend better with circular images */
+}

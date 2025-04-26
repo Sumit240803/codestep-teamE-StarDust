@@ -1,0 +1,37 @@
+/* Header Styles */
+.header-container {
+  @apply text-center mb-8;
+}
+
+.header-image-wrapper {
+  @apply rounded-full mx-auto flex items-center justify-center mb-3;
+}
+
+.header-title {
+  @apply text-white text-xl font-bold font-coin mb-6;
+}
+
+/* Layout Styles */
+.rewards-container {
+  @apply min-h-screen;
+}
+
+.rewards-inner {
+  @apply max-w-md mx-auto pt-8 px-4;
+}
+
+.section-container {
+  @apply mb-6;
+}
+
+.task-item {
+  @apply flex items-center gap-3 p-4   mb-3;
+}
+
+.task-title {
+  @apply font-coin;
+}
+
+.section-title {
+  @apply font-coin;
+}

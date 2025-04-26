@@ -1,0 +1,36 @@
+{
+  "engines": {
+    "node": ">=16.0.0",
+    "npm": ">=7.0.0"
+  },
+  "name": "StarDustAdventures",
+  "scripts": {
+    "build": "npm run build --workspaces --if-present",
+    "prebuild": "npm run prebuild --workspaces --if-present",
+    "pretest": "npm run prebuild --workspaces --if-present",
+    "start": "npm start --workspaces --if-present",
+    "game": "npm run start --workspace=game_frontend",
+    "test": "npm test --workspaces --if-present"
+  },
+  "type": "module",
+  "workspaces": [
+    "src/StarDustAdventures_frontend",
+    "src/game_frontend"
+  ],
+  "dependencies": {
+    "@dfinity/identity": "^2.4.1",
+    "aos": "^2.3.4",
+    "clsx": "^2.1.1",
+    "framer-motion": "^11.11.1",
+    "gsap": "^3.12.5",
+    "react-query": "^3.39.3",
+    "react-router-dom": "^6.26.2",
+    "vite-plugin-compression": "^0.5.1"
+  },
+  "devDependencies": {
+    "autoprefixer": "^10.4.21",
+    "postcss": "^8.5.3",
+    "tailwindcss": "^4.1.4",
+    "vite": "^6.3.3"
+  }
+}

@@ -1,0 +1,21 @@
+
+.wallet-button{
+    @apply  lg:w-[40vw] w-[70vw] md:w-[50vw] ;
+}
+
+.wallet-icon{
+    @apply bg-white rounded-full p-2 object-cover object-center;
+}
+
+.wallet-button-container{
+    @apply font-sf-pro-display !text-lg px-2 flex justify-between items-center;
+}
+
+.wallet-button-container span{
+    @apply text-center;
+}
+
+.wallet-header{
+    @apply ml-[8vw] lg:ml-[4vw] w-[75vw] md:w-[52vw] lg:w-[40vw]
+}
+

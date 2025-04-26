@@ -1,0 +1,4 @@
+.card-grid {
+    @apply flex flex-wrap;
+  }
+  
