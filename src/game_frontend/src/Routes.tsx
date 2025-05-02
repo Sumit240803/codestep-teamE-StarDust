@@ -13,6 +13,8 @@ import ProtectedRoutes from './components/ProtectedRoutes';
 import NotFound from './pages/Error/404/index';
 import { Navigate } from 'react-router-dom';
 import UnAuthorized from './pages/Error/UnAuthorized';
+//import ArenaLayout from './pages/Arena/layout';
+//import GamePage from './pages/Arena/Game';
 
 
 const Layout = lazy(()=>import('./pages/Dashboard/layout'))
@@ -23,6 +25,9 @@ const RewardsList = lazy(()=>import('./pages/Dashboard/RewardsList'))
 const MineCard = lazy(()=>import('./pages/Dashboard/MineCard'))
 const ProfileTabs = lazy(()=>import('./pages/Dashboard/ProfilePage'))
 const Games = lazy(()=>import("./pages/Dashboard/Games"))
+const Hello = lazy(()=>import("./pages/Dashboard/Hello"))
+//const ArenaLayout = lazy(()=>import("./pages/Arena/layout"))
+const GamePage =lazy(()=>import('./pages/Dashboard/Game'))
 export default function AppRoutes() {
     const router = createBrowserRouter([
         {
@@ -36,6 +41,10 @@ export default function AppRoutes() {
         {
             path: '/unauthorized',
             element: <UnAuthorized/>
+        },
+        {
+            path : '/game/:id',
+            element : <GamePage/>
         },
         {
             path: '/dashboard',
@@ -66,8 +75,16 @@ export default function AppRoutes() {
                     element: <RewardsList />,
                 },
                 {
-                    path: 'games',
-                    element: <Games />,
+                    path : 'hello',
+                    element : <Hello/>
+                },
+                {
+                    path : 'games',
+                    element : <Games/>
+                },
+                {
+                    path : 'game/:id',
+                    element : <GamePage/>
                 },
                 {
                     path: 'mine-cards',
@@ -94,3 +111,5 @@ export default function AppRoutes() {
 
     return <RouterProvider router={router} />
 }
+
+
