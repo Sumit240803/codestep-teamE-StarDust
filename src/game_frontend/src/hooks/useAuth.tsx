@@ -20,6 +20,19 @@ const useAuthClient = () => {
   const initializeClient = async () => {
     const client = await AuthClient.create();
     setAuthClient(client);
+    const isAuth = await client.isAuthenticated();
+    if(isAuth){
+      const identity = client.getIdentity();
+      const principal = identity.getPrincipal();
+      if(!principal.isAnonymous()){
+        setIsAuthenticated(prev =>({...prev , ii : true}));
+        setIdentity(identity);
+        setPrincipal(principal);
+
+        const userActor = createActor(canID , { agentOptions : { identity : identity } });
+        setActors(userActor);
+      }
+    }
   };
 
   useEffect(() => {

@@ -13,7 +13,7 @@ const SIDEBAR_ITEMS = [
     {
       icon : '/assets/images/console.svg',
       title : 'Games'
-  },
+  } ,
     {
         icon : '/assets/images/ufo.svg',
         title : 'Airdrop'
