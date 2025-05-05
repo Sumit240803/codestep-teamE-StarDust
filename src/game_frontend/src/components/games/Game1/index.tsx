@@ -5,6 +5,7 @@ import meteor from "/assets/images/game1/meteor.svg";
 import collision from "/assets/sounds/collision-1.mp3";
 import bgMusic from "/assets/sounds/bg-sound-1.mp3";
 import jump from "/assets/sounds/jump-1.mp3";
+import useDocumentTitle from '../../../hooks/useDocumentTitle';
 
 // Constants
 const GRAVITY = 0.6;
@@ -41,6 +42,7 @@ const gameReducer = (state: any, action: any) => {
 };
 
 const Game1 = () => {
+  useDocumentTitle("Rocket Rush | StarDust")
   const rocketRef = useRef<HTMLImageElement>(null);
   const rocketVelocityRef = useRef(0);
   const rocketPositionRef = useRef(window.innerHeight / 2);
