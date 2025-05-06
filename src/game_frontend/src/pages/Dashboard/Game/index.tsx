@@ -5,7 +5,7 @@ import { Navigate, useParams } from 'react-router-dom'
 import Navbar from '../../../components/ui/Navbar'
 
 const gamesComponent: Record<string, JSX.Element> = {
-  rocketrush: <Game1 />,
+  game1: <Game1 />,
   game2: <Game2 />,
   
   
