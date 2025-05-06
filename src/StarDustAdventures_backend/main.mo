@@ -31,7 +31,13 @@ actor {
     {id=6; name="Quantum Analytics"; subtitle="Future of trading"; points=200; time=0; level=0; image="/assets/images/mine03.svg"; cost=800}
   ]);
 
+  let ALL_GAMES: Buffer.Buffer<Types.GameCard> = Buffer.fromArray([
+    {id = 1; title = "Rocket Rush" ; description = "Rocket Rush" ; gimage = "/assets/images/game1/bg-1.png" ; gameType = "timebased"},
+  ]);
 
+  public shared func getGameCards():async [Types.GameCard]{
+      return Buffer.toArray(ALL_GAMES);
+  };
   // Registering new users
   public shared({caller}) func createUser(user:Types.UserInput,refBy:?Principal):async Result.Result<Types.User,Text>{
     try{

@@ -6,7 +6,7 @@ const Games : React.FC = () => {
     const ALL_GAMES = [
         {
           title: "Rocket Rush",
-          image: "/assets/images/mine01.svg",
+          image: "/assets/images/game1/bg-1.png",
           description: "Blast off and race through the galaxy to reach new heights!",
           winBonus: 150,
           energy: 20
