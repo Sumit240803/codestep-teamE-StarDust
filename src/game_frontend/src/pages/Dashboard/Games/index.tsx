@@ -2,8 +2,9 @@ import React from 'react'
 import "./index.css"
 import { Tab, TabPanel, Tabs } from '../../../components/ui/Tab'
 import { ListAllGames } from '../../../components/dashboard/games/GamesCard'
+import { useAllGameCards } from '../../../hooks/useGames'
 const Games : React.FC = () => {
-    const ALL_GAMES = [
+    /*const ALL_GAMES = [
         {
           title: "Rocket Rush",
           image: "/assets/images/game1/bg-1.png",
@@ -25,7 +26,8 @@ const Games : React.FC = () => {
           winBonus: 180,
           energy: 15
         }
-      ];
+      ];*/
+      const {allGames , isLoading} = useAllGameCards();
       
   return (
     <div>
@@ -44,7 +46,7 @@ const Games : React.FC = () => {
                   </div>
         
                   <TabPanel index={0}>
-                    {<ListAllGames GameDetails={ALL_GAMES}/>}
+                    {isLoading ? <p>Loading...</p> : <ListAllGames GameDetails={allGames}/>}
                   </TabPanel>
                 </Tabs>
               </div>

@@ -34,9 +34,11 @@ actor {
   let ALL_GAMES: Buffer.Buffer<Types.GameCard> = Buffer.fromArray([
     {id = 1; title = "Rocket Rush" ; description = "Rocket Rush" ; gimage = "/assets/images/game1/bg-1.png" ; gameType = "timebased"},
   ]);
-
-  public shared func getGameCards():async [Types.GameCard]{
-      return Buffer.toArray(ALL_GAMES);
+  private func get_game_list() :[Types.GameCard]{
+    return Buffer.toArray(ALL_GAMES);
+  };
+  public shared query func getGameCards():async Result.Result<[Types.GameCard] , Text>{
+      return #ok(get_game_list());
   };
   // Registering new users
   public shared({caller}) func createUser(user:Types.UserInput,refBy:?Principal):async Result.Result<Types.User,Text>{
