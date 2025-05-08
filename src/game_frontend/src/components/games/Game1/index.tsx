@@ -91,22 +91,7 @@ const Game1 = () => {
   const render = () => {
     ctx.clearRect(0, 0, window.innerWidth, window.innerHeight);
     
-    /*// Draw background
-    const bgImage = new Image();
-    bgImage.src = bg;
-    ctx.drawImage(bgImage, 0, 0, window.innerWidth, window.innerHeight);
-    
-    // Draw rocket
-    const rocketImg = new Image();
-    rocketImg.src = rocket;
-    ctx.drawImage(rocketImg, 150, rocketPositionRef.current, 190, 70);
-    
-    // Draw obstacles
-    const meteorImg = new Image();
-    meteorImg.src = meteor;
-    obstaclesRef.current.forEach(obs => {
-      ctx.drawImage(meteorImg, obs.left, obs.top, 100, 100);
-    });*/
+
     if (imagesRef.current) {
       const { bg, rocket, meteor } = imagesRef.current;
       ctx.drawImage(bg, 0, 0, window.innerWidth, window.innerHeight);
@@ -326,29 +311,23 @@ const Game1 = () => {
           left: '50%',
           transform: 'translate(-50%, -50%)',
           backgroundColor: 'rgba(0, 0, 0, 0.7)',
-          padding: '40px',
-          borderRadius: '20px',
+          padding: '30px',
+          borderRadius: '15px',
           textAlign: 'center',
           color: 'white',
-          boxShadow: '0 0 20px rgba(255, 0, 0, 0.8)'
+          fontSize: '32px'
         }}>
-          <h1 style={{ fontSize: '48px', color: 'red', marginBottom: '10px' }}>Game Over</h1>
-          <p style={{ fontSize: '24px', marginBottom: '20px' }}>Your Score: {state.score}</p>
-          <button
-            onClick={handleRestart}
-            style={{
-              fontSize: '20px',
-              padding: '10px 30px',
-              backgroundColor: '#ffcc00',
-              color: '#000',
-              border: 'none',
-              borderRadius: '10px',
-              cursor: 'pointer',
-              transition: 'transform 0.2s'
-            }}
-            onMouseOver={(e) => (e.currentTarget.style.transform = 'scale(1.1)')}
-            onMouseOut={(e) => (e.currentTarget.style.transform = 'scale(1)')}
-          >
+          <div>Game Over</div>
+          <div style={{ marginTop: '15px', fontSize: '24px' }}>Score: {state.score}</div>
+          <button onClick={handleRestart} style={{
+            marginTop: '20px',
+            padding: '10px 20px',
+            fontSize: '18px',
+            borderRadius: '10px',
+            border: 'none',
+            backgroundColor: 'orange',
+            cursor: 'pointer'
+          }}>
             Restart
           </button>
         </div>
