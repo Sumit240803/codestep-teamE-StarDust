@@ -27,3 +27,6 @@ export const GET_ALL_CARDS = (actor : ActorSubclass<_SERVICE>)=>{
     return useQuery('all_cards',async()=>api.query(()=>actor.get_all_cards()))
 }
 
+export const GET_ALL_GAMES = (actor : ActorSubclass<_SERVICE>)=>{
+    return useQuery('all_games',async()=>api.query(()=>actor.getGameCards()))
+}

@@ -42,10 +42,7 @@ export default function AppRoutes() {
             path: '/unauthorized',
             element: <UnAuthorized/>
         },
-        {
-            path : '/game/:id',
-            element : <GamePage/>
-        },
+      
         {
             path: '/dashboard',
             element: (

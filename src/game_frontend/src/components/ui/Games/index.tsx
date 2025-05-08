@@ -1,35 +1,38 @@
 import React from "react";
 import "./index.css"
 interface GameProps {
-    title : string;
-    image : string;
-    description : string;
-    winBonus : number;
-    energy : number;
+  id : bigint;
+    title: string;
+    gimage: string;
+    description: string;
+    gameType : string;
+    onClick?: () => void;
 }
 export interface GameType {
+    id : bigint;
     title: string;
-    image: string;
+    gimage: string;
     description: string;
-    winBonus: number;
-    energy: number;
+    gameType : string;
+    onClick?: () => void;
   }
   
 interface GameProps extends GameType{}
 const Game : React.FC<GameProps>=({
+  id,
     title,
-    image,
+    gimage,
     description,
-    winBonus,
-    energy
+   gameType,
+   onClick
 })=>{
     return (
-        <div className="mine-card-wrapper" /*onClick={onClick}*/>
+        <div className="mine-card-wrapper" onClick={onClick}>
               <div className="mine-card card-css">
                 <div>
                   <div className="mine-card-image-container">
                     <img
-                      src={image}
+                      src={gimage}
                       alt="Card-imgs"
                       className="mine-card-image"
                     />
@@ -43,20 +46,13 @@ const Game : React.FC<GameProps>=({
                   
                   <div className="mine-card-stats">
                     <div className="mine-card-stat-row">
-                      <span className="mine-card-stat-label">Win Bonus</span>
+                      <span className="mine-card-stat-label">Game Type</span>
                       <span className="mine-card-stat-value">
-                        <span className="mine-card-icon">🏆</span>
-                        +{winBonus.toString()}
+                        {gameType}
                       </span>
                     </div>
                     
-                    <div className="mine-card-stat-row">
-                      <span className="mine-card-stat-label">Energy</span>
-                      <span className="mine-card-stat-value">
-                        <span className="mine-card-icon">⚡</span>
-                        +{energy.toString()}
-                      </span>
-                    </div>
+                    
                   </div>
                 </div>
               </div>

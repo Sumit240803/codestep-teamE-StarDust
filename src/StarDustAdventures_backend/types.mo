@@ -1,4 +1,6 @@
 import Principal "mo:base/Principal";
+import Nat "mo:base/Nat";
+import Text "mo:base/Text";
 module{
 
     public type Card={
@@ -30,5 +32,13 @@ module{
 
     public type UserInput={
         name : Text;
+    };
+
+    public type GameCard ={
+        id : Nat;
+        title : Text;
+        description : Text;
+        gimage : Text;
+        gameType : Text;
     }
 }
