@@ -1,7 +1,10 @@
 import { useEffect, useRef } from "react";
 import RocketRush from "./GameFile/index";
+
 import Phaser from "phaser";
 import "./index.css"
+import { StartScene } from "./GameFile/startScreen";
+import { EndScreen } from "./GameFile/endScreen";
 export default function GamePage(){
     const gameRef = useRef<Phaser.Game | null>(null);
 
@@ -18,7 +21,7 @@ export default function GamePage(){
             debug: false,
           },
         },
-        scene: [RocketRush],
+        scene: [StartScene,RocketRush,EndScreen],
       };
 
       gameRef.current = new Phaser.Game(config);

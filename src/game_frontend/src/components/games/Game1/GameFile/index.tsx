@@ -15,12 +15,15 @@ export default class RocketRush extends Phaser.Scene {
     {level : 3 , debrisDelay : 800, coinDelay : 450},
     {level : 4 , debrisDelay : 700, coinDelay : 450},
     {level : 5 , debrisDelay : 600, coinDelay : 550},
-    {level : 6 , debrisDelay : 500, coinDelay : 500},
+    {level : 6 , debrisDelay : 500, coinDelay : 900},
   ]
   currentIndexLevel : number =0;
 
   constructor() {
     super({ key: "RocketRush" });
+  }
+  init(){
+    this.score =0;
   }
 
   preload() {
@@ -165,11 +168,11 @@ export default class RocketRush extends Phaser.Scene {
         this.currentIndexLevel =2;
         this.spawnDebris(this.currentIndexLevel);
     }
-    if(this.score >200 && this.score <=300){
+    if(this.score >200 && this.score <=350){
         this.currentIndexLevel = 3;
         this.spawnDebris(this.currentIndexLevel);
     }
-    if(this.score >300 && this.score <=400){
+    if(this.score >350 && this.score <=600){
         this.currentIndexLevel =4;
         this.spawnDebris(this.currentIndexLevel);
     }
@@ -290,6 +293,8 @@ this.time.addEvent({
     // Play explosion animation
     rocket.play('explode');
     this.scene.pause();
+    this.scene.stop('RocketRush');
+    this.scene.launch('EndScreen',{score : this.score});
     // Pause the game when the animation completes
     /*rocket.on('animationcomplete', () => {
       this.scene.pause();
@@ -301,7 +306,11 @@ this.time.addEvent({
     this.starfield.tilePositionX += 0.2; // far background = slower
     this.nebula.tilePositionX += 0.5;    // closer background = faster
     if (this.rocket.y > 450 || this.rocket.y < 0) {
-      this.scene.pause();
+        this.scene.pause();
+      this.scene.stop('RocketRush');
+      
+      this.scene.launch('EndScreen',{score : this.score});
+
     }
   }
 }
