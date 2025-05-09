@@ -1,0 +1,307 @@
+import Phaser from "phaser";
+
+export default class RocketRush extends Phaser.Scene {
+  rocket!: Phaser.Physics.Arcade.Sprite;
+  debrisGroup!: Phaser.Physics.Arcade.Group;
+  starfield!: Phaser.GameObjects.TileSprite;
+  nebula!: Phaser.GameObjects.TileSprite;
+  coins!: Phaser.Physics.Arcade.Group;
+  isGameOver = false;
+  score = 0;
+  scoreText!: Phaser.GameObjects.Text;
+  levels = [
+    { level : 1 , debrisDelay : 1000 , coinDelay : 500 },
+    {level : 2 , debrisDelay : 900, coinDelay : 450},
+    {level : 3 , debrisDelay : 800, coinDelay : 450},
+    {level : 4 , debrisDelay : 700, coinDelay : 450},
+    {level : 5 , debrisDelay : 600, coinDelay : 550},
+    {level : 6 , debrisDelay : 500, coinDelay : 500},
+  ]
+  currentIndexLevel : number =0;
+
+  constructor() {
+    super({ key: "RocketRush" });
+  }
+
+  preload() {
+    this.load.audio('bg' , 'assets/sounds/game1/bg-sound-1.mp3');
+    this.load.audio('collide' , 'assets/sounds/game1/collision-1.mp3');
+    this.load.audio('collect' , 'assets/sounds/game1/coin.mp3');
+    this.load.audio('jump' , 'assets/sounds/game1/jump-1.mp3');
+    this.load.spritesheet('rocket', 'assets/images/game1/Ship3.png', {
+      frameWidth: 384,
+      frameHeight: 384
+    });
+    this.load.image('starfield', 'assets/images/game1/Starfield_05-1024x1024.png');
+    this.load.image('nebula', 'assets/images/game1/Blue_Nebula_02-1024x1024.png');
+    this.load.spritesheet('debris', 'assets/images/game1/1.png', {
+      frameWidth: 90,
+      frameHeight: 90
+    });
+    this.load.spritesheet('explosion', 'assets/images/game1/ship_explosion.png', {
+      frameWidth: 256,
+      frameHeight: 256
+    });
+    this.load.spritesheet('coin', "assets/images/game1/animated_items.png", {
+      frameWidth: 32,
+      frameHeight: 32
+    });
+  }
+
+  create() {
+    this.sound.play('bg');
+    const jumpSound = this.sound.add('jump');
+    //const coinSound = this.sound.add('collect');
+    const width =1024  //this.cameras.main.width;
+    const height =512  //this.cameras.main.height;
+   /* console.log("width", width);
+    console.log("height", height);*/
+    this.starfield = this.add.tileSprite(width / 2, height / 2, width, height, 'starfield');
+
+    this.nebula = this.add.tileSprite(width / 2, height / 2, width, height, 'nebula');
+
+    this.nebula.setAlpha(0.5);
+
+    this.anims.create({
+      key: 'move',
+      frames: this.anims.generateFrameNumbers('rocket', { start: 0, end: 3 }),
+      frameRate: 5,
+      repeat: -1
+    });
+
+    this.scoreText = this.add.text(16, 16, 'Score: 0', {
+      fontSize: '32px',
+      color: '#ffffff'
+    }).setScrollFactor(0);
+
+    this.rocket = this.physics.add.sprite(100, 200, 'rocket').setScale(0.4);
+    this.rocket.body?.setSize(260, 90, true);
+    this.rocket.play('move');
+    this.rocket.setGravityY(600);
+
+    this.input.on('pointerdown', () => {
+      this.rocket.setVelocityY(-300);
+      jumpSound.play();
+    });
+
+    this.anims.create({
+      key: 'spin',
+      frames: this.anims.generateFrameNumbers('debris', { start: 0, end: 24 }),
+      frameRate: 12,
+      repeat: -1
+    });
+
+    this.debrisGroup = this.physics.add.group();
+    this.time.addEvent({
+      delay: this.levels[this.currentIndexLevel].debrisDelay,
+      callback: this.updateLevel,
+      callbackScope: this,
+      loop: true
+    });
+
+    this.anims.create({
+      key: 'explode',
+      frameRate: 5,
+      frames: this.anims.generateFrameNumbers('explosion', { start: 4, end: 10 }),
+      repeat: 0
+    });
+
+    this.coins = this.physics.add.group();
+    this.time.addEvent({
+      delay: this.levels[this.currentIndexLevel].coinDelay,
+      callback: this.spawnCoins,
+      callbackScope: this,
+      loop: true
+    });
+    this.anims.create({
+      key: 'spinCoin',
+      frameRate: 6,
+      frames: this.anims.generateFrameNumbers('coin', { start: 0, end: 7 }),
+      repeat: -1
+    });
+    this.physics.add.overlap(
+      this.rocket as Phaser.Types.Physics.Arcade.GameObjectWithBody,
+      this.coins as Phaser.Physics.Arcade.Group,
+      this.collectCoin as Phaser.Types.Physics.Arcade.ArcadePhysicsCallback,
+      undefined,
+      this
+    );
+
+    // Pass a function that checks if the body is a Sprite, and call the appropriate method
+    this.physics.add.collider(this.rocket, this.debrisGroup, (object1, object2) => {
+      if (object1 instanceof Phaser.Physics.Arcade.Sprite && object2 instanceof Phaser.Physics.Arcade.Sprite) {
+        this.handleCollision(object1, object2);
+      }
+    });
+  }
+
+  collectCoin = (
+    rocketObj: Phaser.GameObjects.GameObject,
+    coinObj: Phaser.GameObjects.GameObject
+  ): void => {
+    const coin = coinObj as Phaser.Physics.Arcade.Sprite;
+    this.sound.play('collect');
+    coin.destroy();
+
+
+    this.score += 10;
+    this.scoreText.setText('Score: ' + this.score);
+  };
+
+  spawnCoins() {
+    const y = Phaser.Math.Between(100, 440);
+    const coin = this.coins.create(1000, y, 'coin');
+    coin.setScale(2);
+    coin.body.allowGravity = false;
+    coin.play('spinCoin');
+    coin.setVelocityX(-400);
+  }
+  updateLevel(){
+    if(this.score <= 100){
+        this.currentIndexLevel =1;
+        this.spawnDebris(this.currentIndexLevel);
+    }
+    if(this.score >100 && this.score <=200){
+        this.currentIndexLevel =2;
+        this.spawnDebris(this.currentIndexLevel);
+    }
+    if(this.score >200 && this.score <=300){
+        this.currentIndexLevel = 3;
+        this.spawnDebris(this.currentIndexLevel);
+    }
+    if(this.score >300 && this.score <=400){
+        this.currentIndexLevel =4;
+        this.spawnDebris(this.currentIndexLevel);
+    }
+  }
+
+  spawnDebris(level : number) {
+    //Linear Motion
+    const y = Phaser.Math.Between(100,440);
+    const x = 1000;
+    const debris = this.debrisGroup.create(x,y,'debris');
+    debris.body.setSize(60, 60);
+    debris.setScale(0.7);
+    debris.play('spin');
+    debris.setImmovable(true);
+    debris.body.allowGravity = false;
+    if(level ==1){
+        debris.setVelocityX(-400);
+    }
+    if(level ==2){
+        let direction = 1;
+    this.time.addEvent({
+        delay: 50,
+        callback: () => {
+            if (debris.x >= 1000 || debris.x <= 800) {
+                direction *= -1; // Reverse the direction
+            }
+            debris.x += direction * 10; // Move left or right
+        },
+        loop: true
+    });
+
+    // Set forward motion
+    debris.setVelocityX(-500);
+    }
+    if(level ==3){
+        debris.setVelocityX(-500);
+        debris.setData('initialY',debris.y);
+        this.time.addEvent({
+            delay : 500,
+            callback : ()=>{
+                const deltaY = Math.sin(this.time.now * 0.07) *100;
+                debris.y =debris.getData('initialY') + deltaY;
+            },
+            loop : true
+        })
+    }
+    if(level ==4){
+        let angle = Phaser.Math.DegToRad(0);
+let radius = 0;
+let baseX = 1000;
+const centerY = y; // Assuming y is passed or defined already
+
+this.time.addEvent({
+    delay: 50,
+    callback: () => {
+        angle += 0.2;      // Speed of rotation
+        radius += 0.5;     // Expansion of the spiral
+        baseX -= 2;        // Move left over time (this is crucial)
+
+        const spiralX = baseX + radius * Math.cos(angle);
+        const spiralY = centerY + radius * Math.sin(angle);
+
+        debris.setPosition(spiralX, spiralY);
+    },
+    loop: true
+});
+
+
+    }
+
+
+    
+    
+    //Circular Motion
+    /*
+    const radius = 20; // Radius of the circle
+    const angle = Phaser.Math.Between(-15, 15); // Random angle to spawn the debris
+
+    // Convert the angle to radians
+    const radians = Phaser.Math.DegToRad(angle);
+
+    // Calculate x and y position based on the circle's radius and angle
+    const x = 1000 //1000 + radius * Math.cos(radians);
+    const y = 250 + radius * Math.sin(radians); // You can adjust the center of the circle (300 in this case)
+
+    const debris = this.debrisGroup.create(x, y, 'debris');
+    debris.body.setSize(60, 60);
+    debris.setScale(0.7);
+    debris.play('spin');
+
+    // Set velocity for circular motion
+    const speed = 450; // You can adjust the speed of the circular motion
+    debris.setVelocityX(-speed * Math.cos(radians)); // Set horizontal velocity
+    debris.setVelocityY(speed * Math.sin(radians)); // Set vertical velocity
+
+    debris.setImmovable(true);
+    debris.body.allowGravity = false;*/
+
+  }
+
+  handleCollision(rocket: Phaser.Physics.Arcade.Sprite, debris: Phaser.Physics.Arcade.Sprite) {
+    
+    // Stop the rocket and play the explosion animation
+    this.isGameOver = true;
+    rocket.setVelocityX(0);
+    rocket.setVelocityY(0);
+
+    const rocketBody = rocket.body as Phaser.Physics.Arcade.Body;
+    rocketBody.setAllowGravity(false);
+    rocketBody.setImmovable(true);
+    this.input.on('pointerdown', () => {
+      rocketBody.setVelocity(0);
+    });
+
+    // Destroy debris
+    debris.destroy();
+    this.sound.play('collide');
+    // Play explosion animation
+    rocket.play('explode');
+    this.scene.pause();
+    // Pause the game when the animation completes
+    /*rocket.on('animationcomplete', () => {
+      this.scene.pause();
+    });*/
+  }
+
+  update() {
+    if (this.isGameOver) return;
+    this.starfield.tilePositionX += 0.2; // far background = slower
+    this.nebula.tilePositionX += 0.5;    // closer background = faster
+    if (this.rocket.y > 450 || this.rocket.y < 0) {
+      this.scene.pause();
+    }
+  }
+}
