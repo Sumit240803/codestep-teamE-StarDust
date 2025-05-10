@@ -6,18 +6,21 @@ export default class RocketRush extends Phaser.Scene {
   starfield!: Phaser.GameObjects.TileSprite;
   nebula!: Phaser.GameObjects.TileSprite;
   coins!: Phaser.Physics.Arcade.Group;
+  levelText!: Phaser.GameObjects.Text;
+  gameText! : Phaser.GameObjects.Text;
+  hit=0;
   isGameOver = false;
   score = 0;
   scoreText!: Phaser.GameObjects.Text;
   levels = [
-    { level : 1 , debrisDelay : 1000 , coinDelay : 500 },
-    {level : 2 , debrisDelay : 900, coinDelay : 450},
+    { level : 1 , debrisDelay : 1200 , coinDelay : 500 },
+    {level : 2 , debrisDelay : 1000, coinDelay : 450},
     {level : 3 , debrisDelay : 800, coinDelay : 450},
     {level : 4 , debrisDelay : 700, coinDelay : 450},
     {level : 5 , debrisDelay : 600, coinDelay : 550},
     {level : 6 , debrisDelay : 500, coinDelay : 900},
   ]
-  currentIndexLevel : number =0;
+  currentIndexLevel  =0;
 
   constructor() {
     super({ key: "RocketRush" });
@@ -73,9 +76,23 @@ export default class RocketRush extends Phaser.Scene {
     });
 
     this.scoreText = this.add.text(16, 16, 'Score: 0', {
-      fontSize: '32px',
-      color: '#ffffff'
-    }).setScrollFactor(0);
+  fontSize: '32px',
+  color: '#ffffff'
+}).setScrollFactor(0);
+
+// Place levelText right next to scoreText with some padding
+this.levelText = this.add.text(this.scoreText.x + 20 + this.scoreText.width + 20, 16, 'Level: 1', {
+  fontSize: '32px',
+  color: '#ffffff'
+}).setScrollFactor(0);
+
+this.gameText = this.add.text(this.levelText.x + 160 + this.levelText.width + 90,30,'yo' , {
+  fontSize: '28px',
+  color: '#ffff00',
+  fontStyle: 'bold',
+  align: 'center'
+}).setOrigin(0.5).setScrollFactor(0).setVisible(true);
+
 
     this.rocket = this.physics.add.sprite(100, 200, 'rocket').setScale(0.4);
     this.rocket.body?.setSize(260, 90, true);
@@ -101,6 +118,12 @@ export default class RocketRush extends Phaser.Scene {
       callbackScope: this,
       loop: true
     });
+    this.time.addEvent({
+      delay : 300,
+      callback : this.checkScore,
+      callbackScope : this,
+      loop : true
+    })
 
     this.anims.create({
       key: 'explode',
@@ -133,9 +156,37 @@ export default class RocketRush extends Phaser.Scene {
     // Pass a function that checks if the body is a Sprite, and call the appropriate method
     this.physics.add.collider(this.rocket, this.debrisGroup, (object1, object2) => {
       if (object1 instanceof Phaser.Physics.Arcade.Sprite && object2 instanceof Phaser.Physics.Arcade.Sprite) {
-        this.handleCollision(object1, object2);
+         this.handleCollision(object1, object2);
       }
     });
+  }
+  checkScore(){
+    if(this.score == 50){
+      this.showText("Doing Great!!");
+    }
+    if(this.score == 100){
+      this.showText("It's a century. Keep Going!")
+    }
+    if(this.score == 150){
+      this.showText("That's what pro player do"
+      )
+    }
+    if(this.score== 200){
+      this.showText("You are reaching God Level");
+    }
+    if(this.score == 250){
+      this.showText("Show them you're the PRO")
+    }
+    if(this.score == 300){
+      this.showText("Impossible")
+    }
+  }
+  showText(message : string){
+    this.gameText.setText(message);
+    this.gameText.setVisible(true);
+    this.time.delayedCall(3000,()=>{
+      this.gameText.setVisible(false);
+    })
   }
 
   collectCoin = (
@@ -162,18 +213,22 @@ export default class RocketRush extends Phaser.Scene {
   updateLevel(){
     if(this.score <= 100){
         this.currentIndexLevel =1;
+        this.levelText.setText('Level: '+ 1);
         this.spawnDebris(this.currentIndexLevel);
     }
     if(this.score >100 && this.score <=200){
         this.currentIndexLevel =2;
+        this.levelText.setText('Level: '+ 2);
         this.spawnDebris(this.currentIndexLevel);
     }
     if(this.score >200 && this.score <=350){
         this.currentIndexLevel = 3;
+        this.levelText.setText('Level: '+ 3);
         this.spawnDebris(this.currentIndexLevel);
     }
     if(this.score >350 && this.score <=600){
         this.currentIndexLevel =4;
+        this.levelText.setText('Level: '+ 4);
         this.spawnDebris(this.currentIndexLevel);
     }
   }
@@ -219,29 +274,28 @@ export default class RocketRush extends Phaser.Scene {
             loop : true
         })
     }
-    if(level ==4){
-        let angle = Phaser.Math.DegToRad(0);
-let radius = 0;
-let baseX = 1000;
-const centerY = y; // Assuming y is passed or defined already
+    if (level === 4) {
+    let directionY = 1; // 1 for down, -1 for up
+    let speedX = -3;    // Move left
+    let speedY = 2;     // Diagonal Y speed
+    const minY = 100;
+    const maxY = 440;
 
-this.time.addEvent({
-    delay: 50,
-    callback: () => {
-        angle += 0.2;      // Speed of rotation
-        radius += 0.5;     // Expansion of the spiral
-        baseX -= 2;        // Move left over time (this is crucial)
+    this.time.addEvent({
+        delay: 16, // ~60fps
+        callback: () => {
+            debris.x += speedX;
+            debris.y += speedY * directionY;
 
-        const spiralX = baseX + radius * Math.cos(angle);
-        const spiralY = centerY + radius * Math.sin(angle);
+            // Reverse Y direction on hitting bounds
+            if (debris.y >= maxY || debris.y <= minY) {
+                directionY *= -1;
+            }
+        },
+        loop: true
+    });
+}
 
-        debris.setPosition(spiralX, spiralY);
-    },
-    loop: true
-});
-
-
-    }
 
 
     
@@ -274,9 +328,19 @@ this.time.addEvent({
   }
 
   handleCollision(rocket: Phaser.Physics.Arcade.Sprite, debris: Phaser.Physics.Arcade.Sprite) {
-    
+    this.hit++;
+    console.log(this.hit);
     // Stop the rocket and play the explosion animation
+    /*if(this.hit < 5){
+      this.cameras.main.shake(250,0.01);
+      return;
+    }else{*/
+
+    
+    this.cameras.main.shake(250,0.01);
     this.isGameOver = true;
+    this.coins.setVelocity(0,0);
+    debris.setVelocity(0,0);
     rocket.setVelocityX(0);
     rocket.setVelocityY(0);
 
@@ -292,13 +356,13 @@ this.time.addEvent({
     this.sound.play('collide');
     // Play explosion animation
     rocket.play('explode');
-    this.scene.pause();
-    this.scene.stop('RocketRush');
-    this.scene.launch('EndScreen',{score : this.score});
+    
+    
     // Pause the game when the animation completes
-    /*rocket.on('animationcomplete', () => {
-      this.scene.pause();
-    });*/
+    rocket.on('animationcomplete', () => {
+      this.scene.stop('RocketRush');
+    this.scene.launch('EndScreen',{score : this.score});
+    });//}
   }
 
   update() {
