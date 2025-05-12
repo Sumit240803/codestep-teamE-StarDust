@@ -8,6 +8,8 @@ export default class RocketRush extends Phaser.Scene {
   coins!: Phaser.Physics.Arcade.Group;
   levelText!: Phaser.GameObjects.Text;
   gameText! : Phaser.GameObjects.Text;
+  redDeb!: Phaser.Physics.Arcade.Group;
+  selectedShip = "";
   hit=0;
   isGameOver = false;
   score = 0;
@@ -25,8 +27,9 @@ export default class RocketRush extends Phaser.Scene {
   constructor() {
     super({ key: "RocketRush" });
   }
-  init(){
+  init(data : any){
     this.score =0;
+    this.selectedShip = data.gameShip
   }
 
   preload() {
@@ -34,7 +37,11 @@ export default class RocketRush extends Phaser.Scene {
     this.load.audio('collide' , 'assets/sounds/game1/collision-1.mp3');
     this.load.audio('collect' , 'assets/sounds/game1/coin.mp3');
     this.load.audio('jump' , 'assets/sounds/game1/jump-1.mp3');
-    this.load.spritesheet('rocket', 'assets/images/game1/Ship3.png', {
+    this.load.spritesheet('red' , "assets/images/game1/red.png",{
+      frameWidth: 90,
+      frameHeight: 90
+    });
+    this.load.spritesheet('rocket', `assets/images/game1/${this.selectedShip}.png`, {
       frameWidth: 384,
       frameHeight: 384
     });
@@ -92,10 +99,28 @@ this.gameText = this.add.text(this.levelText.x + 160 + this.levelText.width + 90
   fontStyle: 'bold',
   align: 'center'
 }).setOrigin(0.5).setScrollFactor(0).setVisible(true);
+const scaleMap: Record<string, number> = {
+  Ship1: 1.4,
+  Ship2: 0.9,
+  Ship3: 0.3, // smaller scale to match others
+  Ship4: 0.9
+};
+const sizeMap : Record<string,Array<number>>={
+  Ship1 : [60, 30],
+  Ship2 : [60, 30],
+  Ship3 : [260, 90],
+  Ship4 : [80, 30],
+}
+const offsetMap: Record<string, [number, number]> = {
+  Ship1: [160,130],  // Adjust these values experimentally
+  Ship2: [160, 150],
+  Ship3: [60, 145],
+  Ship4: [160, 148]
+};
 
-
-    this.rocket = this.physics.add.sprite(100, 200, 'rocket').setScale(0.4);
-    this.rocket.body?.setSize(260, 90, true);
+    this.rocket = this.physics.add.sprite(100, 200, 'rocket').setScale(scaleMap[this.selectedShip]);
+    this.rocket.body?.setSize(sizeMap[this.selectedShip][0],sizeMap[this.selectedShip][1],true);
+    this.rocket.body?.setOffset(offsetMap[this.selectedShip][0], offsetMap[this.selectedShip][1]);
     this.rocket.play('move');
     this.rocket.setGravityY(600);
 
@@ -103,14 +128,19 @@ this.gameText = this.add.text(this.levelText.x + 160 + this.levelText.width + 90
       this.rocket.setVelocityY(-300);
       jumpSound.play();
     });
-
+    this.anims.create({
+      key: 'spinred',
+      frames: this.anims.generateFrameNumbers('red', { start: 0, end: 24 }),
+      frameRate: 12,
+      repeat: -1
+    });
     this.anims.create({
       key: 'spin',
       frames: this.anims.generateFrameNumbers('debris', { start: 0, end: 24 }),
       frameRate: 12,
       repeat: -1
     });
-
+    this.redDeb = this.physics.add.group();
     this.debrisGroup = this.physics.add.group();
     this.time.addEvent({
       delay: this.levels[this.currentIndexLevel].debrisDelay,
@@ -159,7 +189,13 @@ this.gameText = this.add.text(this.levelText.x + 160 + this.levelText.width + 90
          this.handleCollision(object1, object2);
       }
     });
+    this.physics.add.collider(this.rocket,this.redDeb, (obj1 , obj2)=>{
+      if(obj1 instanceof Phaser.Physics.Arcade.Sprite && obj2 instanceof Phaser.Physics.Arcade.Sprite){
+        this.handleCollision(obj1,obj2);
+      }
+    })
   }
+
   checkScore(){
     if(this.score == 50){
       this.showText("Doing Great!!");
@@ -198,7 +234,7 @@ this.gameText = this.add.text(this.levelText.x + 160 + this.levelText.width + 90
     coin.destroy();
 
 
-    this.score += 10;
+    this.score += 5;
     this.scoreText.setText('Score: ' + this.score);
   };
 
@@ -211,26 +247,39 @@ this.gameText = this.add.text(this.levelText.x + 160 + this.levelText.width + 90
     coin.setVelocityX(-400);
   }
   updateLevel(){
-    if(this.score <= 100){
+    if(this.score <= 50){
         this.currentIndexLevel =1;
         this.levelText.setText('Level: '+ 1);
-        this.spawnDebris(this.currentIndexLevel);
+        //this.spawnDebris(this.currentIndexLevel);
+        this.spwanRedDeb();
     }
-    if(this.score >100 && this.score <=200){
+    if(this.score >50 && this.score <=100){
         this.currentIndexLevel =2;
         this.levelText.setText('Level: '+ 2);
-        this.spawnDebris(this.currentIndexLevel);
+        //this.spawnDebris(this.currentIndexLevel);
+        this.spwanRedDeb();
     }
-    if(this.score >200 && this.score <=350){
+    if(this.score >100 && this.score <=200){
         this.currentIndexLevel = 3;
         this.levelText.setText('Level: '+ 3);
         this.spawnDebris(this.currentIndexLevel);
     }
-    if(this.score >350 && this.score <=600){
+    if(this.score >200){
         this.currentIndexLevel =4;
         this.levelText.setText('Level: '+ 4);
         this.spawnDebris(this.currentIndexLevel);
     }
+  }
+  spwanRedDeb(){
+    const y= Phaser.Math.Between(100,440);
+    const x = 1000;
+    const debris = this.redDeb.create(x,y,'red');
+    debris.setSize(60,60);
+    debris.setScale(0.7);
+    debris.play('spinred');
+    debris.setImmovable(true);
+    debris.body.allowGravity = false;
+    debris.setVelocityX(-400);
   }
 
   spawnDebris(level : number) {
@@ -362,6 +411,7 @@ this.gameText = this.add.text(this.levelText.x + 160 + this.levelText.width + 90
     rocket.on('animationcomplete', () => {
       this.scene.stop('RocketRush');
     this.scene.launch('EndScreen',{score : this.score});
+    this.scene.restart();
     });//}
   }
 

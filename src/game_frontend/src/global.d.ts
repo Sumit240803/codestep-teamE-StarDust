@@ -21,6 +21,6 @@ declare global {
       prizePerHour:bigint;
       status:{active:null, banned:null};
       boost_value:bigint;
-      cards : Cards[]
+      cards : Cards[];
     }
   }

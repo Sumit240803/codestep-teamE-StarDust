@@ -304,3 +304,128 @@ const Game2: React.FC = () => {
 };
 
 export default Game2;
+
+/*
+// SpaceRunnerScene.ts
+import Phaser from 'phaser';
+
+export default class SpaceRunnerScene extends Phaser.Scene {
+  astronaut!: Phaser.Physics.Arcade.Sprite;
+  cursors!: Phaser.Types.Input.Keyboard.CursorKeys;
+  obstacles!: Phaser.Physics.Arcade.Group;
+  score = 0;
+  scoreText!: Phaser.GameObjects.Text;
+  isGameOver = false;
+
+  constructor() {
+    super('SpaceRunner');
+  }
+
+  preload() {
+    this.load.image('background', 'assets/images/game2/space-bg.jpg');
+    this.load.image('astronaut', 'assets/images/game2/astronaut-no-bg.svg');
+    this.load.image('rock', 'assets/images/game2/rock.svg');
+    this.load.image('monster', 'assets/images/game2/monster.svg');
+    this.load.image('meteor', 'assets/images/game2/meteor.svg');
+    this.load.image('flame', 'assets/images/game2/flames.svg');
+    this.load.image('explosion', 'assets/images/game2/explosion.svg');
+
+    this.load.audio('jump', 'assets/images/game2/jump.mp3');
+    this.load.audio('start', 'assets/images/game2/game-start.mp3');
+    this.load.audio('gameOver', 'assets/images/game2/game-over.mp3');
+  }
+
+  create() {
+    this.add.image(600, 300, 'background').setDisplaySize(1200, 600);
+
+    this.astronaut = this.physics.add.sprite(150, 500, 'astronaut').setScale(0.8);
+    this.astronaut.setCollideWorldBounds(true);
+    this.astronaut.setGravityY(2200);
+
+    this.cursors = this.input.keyboard!.createCursorKeys();
+    this.input.keyboard?.on('keydown-SPACE', this.jump, this);
+
+    this.obstacles = this.physics.add.group();
+    this.physics.add.overlap(this.astronaut as Phaser.Types.Physics.Arcade.GameObjectWithBody, this.obstacles as Phaser.Physics.Arcade.Group, this.hitObstacle as Phaser.Types.Physics.Arcade.ArcadePhysicsCallback, undefined, this);
+
+    this.scoreText = this.add.text(20, 20, 'Score: 0', {
+      fontSize: '24px',
+      color: '#fff',
+      fontFamily: 'Courier New',
+    });
+
+    this.time.addEvent({
+      delay: Phaser.Math.Between(1400, 2000),
+      callback: this.spawnObstacle,
+      callbackScope: this,
+      loop: true,
+    });
+
+    this.sound.play('start');
+  }
+
+  jump() {
+    if (!this.isGameOver && this.astronaut.body?.touching.down) {
+      this.astronaut.setVelocityY(-900);
+      this.sound.play('jump');
+    }
+  }
+
+  spawnObstacle() {
+    if (this.isGameOver) return;
+
+    const types = ['rock', 'monster', 'meteor', 'flame'];
+    const type = Phaser.Utils.Array.GetRandom(types);
+
+    let y = 500;
+    if (type === 'meteor') y = Phaser.Math.Between(0, 400);
+    if (type === 'flame') y = 0;
+
+    const obs = this.obstacles.create(1300, y, type).setScale(0.8);
+    obs.setVelocityX(-350);
+    obs.setGravityY(type === 'flame' ? 500 : 0);
+    obs.setSize(obs.width * 0.6, obs.height * 0.6);
+  }
+
+hitObstacle(
+  astronaut: Phaser.GameObjects.GameObject,
+  obstacle: Phaser.GameObjects.GameObject
+): void {
+  if (this.isGameOver) return;
+
+  this.isGameOver = true;
+  this.sound.play('gameOver');
+
+  const player = astronaut as Phaser.Physics.Arcade.Sprite;
+
+  this.add.image(player.x, player.y, 'explosion').setScale(1.2);
+  player.setTint(0xff0000);
+  this.physics.pause();
+
+  this.add.text(500, 250, 'Game Over', {
+    fontSize: '48px',
+    color: 'white',
+  }).setOrigin(0.5);
+
+  this.add.text(500, 320, `Final Score: ${this.score}`, {
+    fontSize: '32px',
+    color: 'white',
+  }).setOrigin(0.5);
+}
+
+
+  update() {
+    if (this.isGameOver) return;
+
+    // Remove offscreen obstacles and update score
+    this.obstacles.getChildren().forEach((obs: Phaser.GameObjects.GameObject) => {
+      const obstacle = obs as Phaser.Physics.Arcade.Image;
+      if (obstacle.x + obstacle.width < 0) {
+        this.obstacles.remove(obstacle, true, true);
+        this.score++;
+        this.scoreText.setText(`Score: ${this.score}`);
+      }
+    });
+  }
+}
+*/
