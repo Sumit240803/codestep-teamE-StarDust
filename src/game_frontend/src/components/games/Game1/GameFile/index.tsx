@@ -127,7 +127,7 @@ this.gameText = this.add.text(this.levelText.x + 160 + this.levelText.width + 90
 
     this.anims.create({
       key: 'explode',
-      frameRate: 5,
+      frameRate: 9,
       frames: this.anims.generateFrameNumbers('explosion', { start: 4, end: 10 }),
       repeat: 0
     });
