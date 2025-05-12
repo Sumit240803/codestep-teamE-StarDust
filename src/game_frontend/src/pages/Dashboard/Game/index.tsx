@@ -1,13 +1,15 @@
 import React from 'react'
 import Game1 from '../../../components/games/Game1'
 import Game2 from '../../../components/games/Game2'
+import Game3 from '../../../components/games/Game3'
 import { Navigate, useParams } from 'react-router-dom'
 import Navbar from '../../../components/ui/Navbar'
+
 
 const gamesComponent: Record<string, JSX.Element> = {
   1: <Game1 />,
   2: <Game2 />,
-  
+  3: <Game3 />,
   
 }
 
