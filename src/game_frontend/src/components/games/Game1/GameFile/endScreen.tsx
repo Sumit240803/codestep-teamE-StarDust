@@ -30,6 +30,11 @@ export class EndScreen extends Phaser.Scene{
       fontSize: '32px',
       color: '#ffffff'
     }).setOrigin(0.5);
+    this.add.text(512, 400, `Your Points will be added into your account`, {
+      fontFamily : 'Coin Ding Dong',
+      fontSize: '32px',
+      color: '#ffffff'
+    }).setOrigin(0.5);
     this.anims.create({
       key: 'explode',
       frameRate: 2,
