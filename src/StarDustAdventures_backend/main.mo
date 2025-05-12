@@ -32,8 +32,9 @@ actor {
   ]);
 
   let ALL_GAMES: Buffer.Buffer<Types.GameCard> = Buffer.fromArray([
-    {id = 1; title = "Rocket Rush" ; description = "Rocket Rush" ; gimage = "/assets/images/game1/bg-1.png" ; gameType = "timebased"},
-    {id = 2; title = "Space Runner" ; description = "Space Runner" ; gimage = "/assets/images/game1/bg-1.png" ; gameType = "scorebased"}
+    {id = 1; title = "Rocket Rush" ; description = "Rocket Rush" ; gimage = "/assets/images/game1/bg-1.png" ; gameType = "scorebased"},
+    {id = 2; title = "Space Runner" ; description = "Space Runner" ; gimage = "/assets/images/game1/bg-1.png" ; gameType = "scorebased"},
+{id = 3; title = "Space Shooter" ; description = "Space Shooter" ; gimage = "/assets/images/game1/bg-1.png" ; gameType = "scorebased"}
   ]);
   private func get_game_list() :[Types.GameCard]{
     return Buffer.toArray(ALL_GAMES);
