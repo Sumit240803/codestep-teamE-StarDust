@@ -5,6 +5,7 @@ import Phaser from "phaser";
 import "./index.css"
 import { StartScene } from "./GameFile/startScreen";
 import { EndScreen } from "./GameFile/endScreen";
+import { SelectScreen } from "./GameFile/selectScreen";
 export default function GamePage(){
     const gameRef = useRef<Phaser.Game | null>(null);
 
@@ -13,7 +14,7 @@ export default function GamePage(){
       const config = {
         type: Phaser.AUTO,
         width: 1024,
-        height: 500,
+        height: 512,
         parent: 'game-container',
         physics: {
           default: 'arcade',
@@ -21,7 +22,7 @@ export default function GamePage(){
             debug: false,
           },
         },
-        scene: [StartScene,RocketRush,EndScreen],
+        scene: [SelectScreen,StartScene,RocketRush,EndScreen],
       };
 
       gameRef.current = new Phaser.Game(config);

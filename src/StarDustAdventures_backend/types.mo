@@ -28,7 +28,7 @@ module{
         status:UserStatus;
         boost_value : Nat;
         cards : [Card];
-        energy : Nat;
+      
     };
 
     public type UserInput={

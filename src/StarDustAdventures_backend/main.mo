@@ -10,7 +10,7 @@ import Time "mo:base/Time";
 import Int "mo:base/Int";
 import Timer "mo:base/Timer";
 import Text "mo:base/Text";
-import Array "mo:base/Array";
+import _Array "mo:base/Array";
 import Types "types";
 
 actor {
@@ -59,7 +59,7 @@ actor {
         status=#active;
         boost_value=0;
         cards=[];
-        energy =10;
+      
       };
 
       switch(refBy){
@@ -146,7 +146,7 @@ actor {
             status=user.status;
             boost_value=user.boost_value;
             cards=user.cards;
-            energy = user.energy;
+         
           };
           ignore userMap.replace(caller,updatedUser);
           return #ok(updatedUser)
@@ -181,7 +181,7 @@ actor {
             status=#disabled;
             boost_value=val.boost_value;
             cards=val.cards;
-            energy = val.energy;
+       
           };
 
           ignore userMap.replace(caller,user);
@@ -207,10 +207,17 @@ actor {
     return null;
   };
 
-  private func get_user_card(user_id : Principal) : [Types.Card]{
-    let ?user = userMap.get(user_id);
-    return user.cards;
-  };
+ private func get_user_card(user_id : Principal) : [Types.Card] {
+  switch (userMap.get(user_id)) {
+    case (?user) {
+      return user.cards;
+    };
+    case (null) {
+      return []; // or handle as needed, maybe throw an error
+    };
+  }
+};
+
 
   private func add_card_to_user(user_id: Principal, card_id: Nat): async Result.Result<(), Text> {
     let ?user = userMap.get(user_id) else return #err(Constants.ERRORS.userNotFound);
@@ -233,7 +240,7 @@ actor {
       status = user.status;
       boost_value = new_boost_val;
       cards = Buffer.toArray<Types.Card>(new_card_list);
-      energy = user.energy;
+    
     };
 
     ignore userMap.replace(user_id, updated_user);
@@ -294,7 +301,7 @@ actor {
       status = user.status;
       boost_value = user.boost_value;
       cards = user.cards;
-      energy = user.energy;
+   
     };
     return #ok(updatedUser);
   };
@@ -408,7 +415,7 @@ actor {
             status=val.status;
             boost_value=val.boost_value;
             cards=val.cards;
-            energy = val.energy;
+         
           };
 
           ignore userMap.replace(id,user);
@@ -476,7 +483,7 @@ actor {
               status=val.status;
               boost_value=val.boost_value;
               cards=val.cards;
-              energy = val.energy;
+          
             };
 
             ignore userMap.replace(userIdList[i],user);
