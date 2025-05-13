@@ -2,6 +2,7 @@ import { ActorSubclass } from "@dfinity/agent"
 import { _SERVICE } from "../../../../declarations/StarDustAdventures_backend/StarDustAdventures_backend.did"
 import { useMutation, useQueryClient } from "react-query"
 import api from "."
+import { Principal } from "@dfinity/principal"
 
 type CreateUserData={
     user : {name : string};
@@ -43,3 +44,14 @@ export const INCREMENT_POINTS = (actor : ActorSubclass<_SERVICE>)=>{
         }  
     })
 }
+export const useAddPoints = (actor: ActorSubclass<_SERVICE>, score: bigint) => {
+  const queryClient = useQueryClient();
+
+  return useMutation({
+    mutationKey: ['score'],
+    mutationFn: async () => api.update(() => actor.incrementScore(score)),
+    onSuccess: () => {
+      queryClient.invalidateQueries('score');
+    },
+  });
+};

@@ -256,13 +256,14 @@ const offsetMap: Record<string, [number, number]> = {
     if(this.score >50 && this.score <=100){
         this.currentIndexLevel =2;
         this.levelText.setText('Level: '+ 2);
-        //this.spawnDebris(this.currentIndexLevel);
+        this.spawnDebris(this.currentIndexLevel);
         this.spwanRedDeb();
     }
     if(this.score >100 && this.score <=200){
         this.currentIndexLevel = 3;
         this.levelText.setText('Level: '+ 3);
         this.spawnDebris(this.currentIndexLevel);
+        this.spwanRedDeb();
     }
     if(this.score >200){
         this.currentIndexLevel =4;

@@ -6,8 +6,11 @@ import "./index.css"
 import { StartScene } from "./GameFile/startScreen";
 import { EndScreen } from "./GameFile/endScreen";
 import { SelectScreen } from "./GameFile/selectScreen";
-export default function GamePage(){
-    const gameRef = useRef<Phaser.Game | null>(null);
+import { ActorSubclass } from "@dfinity/agent";
+import { _SERVICE } from "../../../../../declarations/StarDustAdventures_backend/StarDustAdventures_backend.did";
+import { MyGame } from "./GameFile/MyGame";
+export default function GamePage({actor} : {actor : ActorSubclass<_SERVICE>}){
+    const gameRef = useRef<MyGame | null>(null);
 
   useEffect(() => {
     if (!gameRef.current) {
@@ -25,7 +28,8 @@ export default function GamePage(){
         scene: [SelectScreen,StartScene,RocketRush,EndScreen],
       };
 
-      gameRef.current = new Phaser.Game(config);
+      gameRef.current = new MyGame(config ,actor);
+      gameRef.current.actor = actor;
     }
 
     return () => {
@@ -34,7 +38,7 @@ export default function GamePage(){
         gameRef.current = null;
       }
     };
-  }, []);
+  }, [actor]);
 
   return (
     <div className="game-wrapper">
