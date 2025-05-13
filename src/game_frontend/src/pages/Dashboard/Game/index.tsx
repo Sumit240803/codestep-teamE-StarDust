@@ -4,21 +4,26 @@ import Game2 from '../../../components/games/Game2'
 import Game3 from '../../../components/games/Game3'
 import { Navigate, useParams } from 'react-router-dom'
 import Navbar from '../../../components/ui/Navbar'
+import { useAuth } from '../../../hooks/useAuth'
+import { use } from 'matter'
 
 
-const gamesComponent: Record<string, JSX.Element> = {
-  1: <Game1 />,
-  2: <Game2 />,
-  3: <Game3 />,
-  
-}
+
 
 const GamePage = () => {
+  const auth = useAuth();
   const { id } = useParams<{ id?: string }>()
 
   if (!id) {
     return <Navigate to="/notfound" replace />
   }
+  const gamesComponent: Record<string, JSX.Element> = {
+  
+  1: <Game1 actor={auth?.actors} />,
+  2: <Game2 actor={auth?.actors} />,
+  3: <Game3 actor={auth?.actors} />,
+  
+}
 
   const selectedGame = gamesComponent[id]
 

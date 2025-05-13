@@ -11,6 +11,8 @@ import Int "mo:base/Int";
 import Timer "mo:base/Timer";
 import Text "mo:base/Text";
 import _Array "mo:base/Array";
+import Nat "mo:base/Nat";
+import Prelude "mo:base/Prelude";
 import Types "types";
 
 actor {
@@ -102,6 +104,36 @@ actor {
       return #err(Error.message(err));
     }
   };
+  public shared({caller}) func incrementScore(score : Nat):async Result.Result<Text,Text> {
+    try{
+      let incrementResult = await addPointsToUser(caller,score);
+      switch(incrementResult){
+        case(#ok){
+          return #ok("Points added successfully");
+        };
+        case(#err(error)){
+          return #err(error);
+        }
+      }
+    }catch(err){
+      return #err(Error.message(err));
+    }
+  };
+  /*public shared({caller}) func incrementScore(score : Nat):async Result.Result<Text,Text>{
+    try{
+      let result = await addPointsToUser(caller,score);
+      switch(result){
+        case(#ok){
+          return #ok("Score Added");
+        }
+        case(#err(error)){
+          return #err(error);
+        }
+      }catch(err){
+        return #err(Error.message(err));
+      }
+    }
+  };*/
 
   public shared query ({caller}) func getUser() : async Result.Result<Types.User, Text> {
     try{
@@ -398,9 +430,10 @@ actor {
     }
   };
 
+
     // internal function, adds new points. will be used in future improvements
     //Future : New Map for Points <Principal, Nat>
-  public func addPointsToUser(id:Principal,points:Nat):async Result.Result<(),Text>{
+  private func addPointsToUser(id:Principal,points:Nat):async Result.Result<(),Text>{
     try{
       let oldUser=userMap.get(id);
       switch(oldUser) {

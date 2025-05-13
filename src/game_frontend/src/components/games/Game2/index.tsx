@@ -1,6 +1,11 @@
+import { ActorSubclass } from '@dfinity/agent';
 import React, { useEffect, useRef, useState } from 'react';
-
-const Game2: React.FC = () => {
+import { _SERVICE } from '../../../../../declarations/StarDustAdventures_backend/StarDustAdventures_backend.did';
+import { useAddPoints } from '../../../utils/api/update';
+type ActorProp={
+  actor : ActorSubclass<_SERVICE>;
+}
+const Game2: React.FC<ActorProp> = ({actor}) => {
   const canvasRef = useRef<HTMLCanvasElement>(null);
   const astronautYRef = useRef(500);
   const astronautVelocityRef = useRef(0);
@@ -10,6 +15,7 @@ const Game2: React.FC = () => {
   const [isGameOver, setIsGameOver] = useState(false);
   const [finalScore, setFinalScore] = useState(0);
   const [gameStarted, setGameStarted] = useState(false);
+  const mutation = useAddPoints(actor,BigInt(finalScore))
 
   const showExplosion = useRef(false);
   const explosionRef = useRef<{ x: number; y: number } | null>(null);
@@ -57,6 +63,7 @@ const Game2: React.FC = () => {
   const gameOverSound = useRef<HTMLAudioElement>(new Audio('assets/images/game2/game-over.mp3'));
 
   const handleRestart = () => {
+    
     setIsGameOver(false);
     scoreRef.current = 0;
     astronautYRef.current = 500;
@@ -231,6 +238,12 @@ const Game2: React.FC = () => {
       cancelAnimationFrame(animationFrameId);
     };
   }, [isGameOver, gameStarted]);
+
+  useEffect(()=>{
+    if(isGameOver && finalScore > 0){
+      mutation.mutate();
+    }
+  },[isGameOver])
 
   return (
     <div

@@ -1,12 +1,18 @@
-import { useEffect, useRef, useState } from 'react';
+import { ActorSubclass } from '@dfinity/agent';
+import React, { useEffect, useRef, useState } from 'react';
+import { _SERVICE } from '../../../../../declarations/StarDustAdventures_backend/StarDustAdventures_backend.did';
+import { useAddPoints } from '../../../utils/api/update';
 
 type GameState = 'initial' | 'countdown' | 'playing' | 'paused' | 'over';
-
-const Game3 = () => {
+type ActorProp={
+  actor : ActorSubclass<_SERVICE>;
+}
+const Game3 : React.FC<ActorProp> = ({actor}) => {
   const canvasRef = useRef<HTMLCanvasElement | null>(null);
   const [score, setScore] = useState(0);
   const [gameState, setGameState] = useState<GameState>('countdown');
   const [countdown, setCountdown] = useState(3);
+  const mutation = useAddPoints(actor,BigInt(score));
   
   // Animation frame ref to store the ID
   const animationFrameIdRef = useRef<number | null>(null);
@@ -212,6 +218,11 @@ const Game3 = () => {
       window.removeEventListener('keyup', handleKeyUp);
     };
   }, [gameState, countdown, score]);
+  useEffect(()=>{
+    if (gameState === "over" && score > 0){
+      mutation.mutate();
+    }
+  },[gameState])
 
   return (
     <div className="relative w-full h-full flex flex-col items-center">

@@ -1,3 +1,8 @@
+import { ActorSubclass } from "@dfinity/agent";
+import { addPoints } from "./addPoint";
+import { MyGame } from "./MyGame";
+import { _SERVICE } from "../../../../../../declarations/StarDustAdventures_backend/StarDustAdventures_backend.did";
+
 export class EndScreen extends Phaser.Scene{
     private finalScore : number = 0;
      bg!: Phaser.GameObjects.TileSprite;
@@ -23,7 +28,16 @@ export class EndScreen extends Phaser.Scene{
         this.finalScore= data.score;
     }
     create() {
+    // console.log("Before")
+      const actor = (this.game as MyGame).actor as ActorSubclass<_SERVICE>;
+      console.log(actor);
+      if(actor){
+        //console.log("Function Worked")
+        actor.incrementScore(BigInt(this.finalScore)).then((res)=> console.log("Points Added",res)).catch((err)=>{
+          console.log("Error" , err);
+        });
 
+      }
       this.bg = this.add.tileSprite(this.width / 2, this.height / 2, this.width, this.height, 'endBG');
     this.add.text(512, 370, `Score: ${this.finalScore}`, {
       fontFamily : 'Coin Ding Dong',
