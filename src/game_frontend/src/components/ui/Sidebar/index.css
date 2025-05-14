@@ -1,6 +1,6 @@
 /* Desktop sidebar */
 .sidebar {
-    @apply fixed w-auto min-h-screen h-auto left-[-12px] top-0 flex flex-col justify-center z-50;
+    @apply fixed w-auto min-h-screen h-auto left-[-12px] top-12 flex flex-col justify-center z-50;
 }
 
 /* Base styles for sidebar children */
