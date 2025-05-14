@@ -30,7 +30,7 @@ export class EndScreen extends Phaser.Scene{
     create() {
     // console.log("Before")
       const actor = (this.game as MyGame).actor as ActorSubclass<_SERVICE>;
-      console.log(actor);
+     // console.log(actor);
       if(actor){
         //console.log("Function Worked")
         actor.incrementScore(BigInt(this.finalScore)).then((res)=> console.log("Points Added",res)).catch((err)=>{

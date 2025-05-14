@@ -98,7 +98,7 @@ this.gameText = this.add.text(this.levelText.x + 160 + this.levelText.width + 90
   color: '#ffff00',
   fontStyle: 'bold',
   align: 'center'
-}).setOrigin(0.5).setScrollFactor(0).setVisible(true);
+}).setOrigin(0.5).setScrollFactor(0).setVisible(false);
 const scaleMap: Record<string, number> = {
   Ship1: 1.4,
   Ship2: 0.9,

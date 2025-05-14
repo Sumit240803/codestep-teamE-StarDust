@@ -6,6 +6,7 @@ import { Navigate, useParams } from 'react-router-dom'
 import Navbar from '../../../components/ui/Navbar'
 import { useAuth } from '../../../hooks/useAuth'
 import { use } from 'matter'
+import Game4 from '../../../components/games/Game4'
 
 
 
@@ -22,6 +23,7 @@ const GamePage = () => {
   1: <Game1 actor={auth?.actors} />,
   2: <Game2 actor={auth?.actors} />,
   3: <Game3 actor={auth?.actors} />,
+  4: <Game4/>
   
 }
 
