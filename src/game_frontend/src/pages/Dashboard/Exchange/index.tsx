@@ -17,10 +17,13 @@ const Exchange=()=>{
 
        {isLoading ? <Loader/>: (
         <>
-        <section className="flex items-center justify-center w-screen font-coin z-10">
-            <img src='/assets/images/ufo.svg' alt="ufo" width={50} height={50} loading="lazy"/>
+        {
+
+            <section className="flex  items-center justify-center w-screen font-coin z-10">
+            <img className="z-100" src='/assets/images/ufo.svg' alt="ufo" width={50} height={50} loading="lazy"/>
             <h3 className="exchange-points font-bold text-4xl">{points.toFixed(3)}</h3>
         </section>
+        }
 
         {/* sm screen */}
         <div className="flex md:hidden rotate-90 z-20  t-10 w-[40%] absolute bottom-20 left-1/2 -translate-x-1/2">
@@ -40,14 +43,15 @@ const Exchange=()=>{
             style={{
                 backgroundImage: 'url("/assets/images/firefly.webp")',
                 position: 'fixed',
-                bottom: 0,
+                bottom: -30,
                 left: 0,
+                
                 width: '100%',
-                height: '100%',  
+                height: '90%',  
                 backgroundSize: 'cover',
                 backgroundRepeat: 'no-repeat',
                 backgroundPosition: 'center bottom',
-                zIndex:1
+                zIndex:1,
                 
             }}
         >
