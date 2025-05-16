@@ -2,7 +2,7 @@ import { ActorSubclass } from "@dfinity/agent"
 import { _SERVICE } from "../../../../declarations/StarDustAdventures_backend/StarDustAdventures_backend.did"
 import { useMutation, useQueryClient } from "react-query"
 import api from "."
-import { Principal } from "@dfinity/principal"
+
 
 type CreateUserData={
     user : {name : string};

@@ -25,7 +25,7 @@ const RewardsList = lazy(()=>import('./pages/Dashboard/RewardsList'))
 const MineCard = lazy(()=>import('./pages/Dashboard/MineCard'))
 const ProfileTabs = lazy(()=>import('./pages/Dashboard/ProfilePage'))
 const Games = lazy(()=>import("./pages/Dashboard/Games"))
-const Hello = lazy(()=>import("./pages/Dashboard/Hello"))
+
 //const ArenaLayout = lazy(()=>import("./pages/Arena/layout"))
 const GamePage =lazy(()=>import('./pages/Dashboard/Game'))
 export default function AppRoutes() {
@@ -70,10 +70,6 @@ export default function AppRoutes() {
                 {
                     path: 'gifts',
                     element: <RewardsList />,
-                },
-                {
-                    path : 'hello',
-                    element : <Hello/>
                 },
                 {
                     path : 'games',

@@ -42,11 +42,18 @@ const Games : React.FC = () => {
                     <Tab index={0}>
                       <p>All Games</p>
                     </Tab>
+                    <Tab index={1}>
+                      <p>MarketPlace</p>
+                    </Tab>
                     
                   </div>
         
                   <TabPanel index={0}>
                     {isLoading ? <p>Loading...</p> : <ListAllGames GameDetails={allGames}/>}
+                  </TabPanel>
+
+                  <TabPanel index={1}>
+                    <p className='coin-ding-dong'>This is Marketplace</p>
                   </TabPanel>
                 </Tabs>
               </div>
