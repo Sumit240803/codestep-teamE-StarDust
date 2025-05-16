@@ -10,7 +10,7 @@ const MineCardTabSwitch=()=>{
   const {allCards, userCards, isLoading} = useAllCards()
   return (
     <div className="mine-card-container">
-      <div className="mine-card-inner">
+      <div className="mine-card-inner"> 
         <Tabs>
           <div className="min-card-tab">
             <Tab index={0}>

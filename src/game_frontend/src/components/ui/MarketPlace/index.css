@@ -1,0 +1,108 @@
+
+  /* Card styles */
+  .mine-card-wrapper {
+    @apply m-2.5 mb-10;
+  }
+  
+  .mine-card {
+    @apply bg-[#29354F] rounded-t-[1px] overflow-hidden shadow-lg;
+  }
+  
+  .mine-card-image-container {
+    @apply h-28 bg-cover bg-center relative;
+  }
+  
+  .mine-card-image {
+    @apply w-full h-full  object-cover;
+  }
+  
+  .mine-card-content {
+    @apply py-2.5 space-y-1;
+  }
+  
+  .mine-card-header {
+    @apply flex flex-col justify-center items-center;
+  }
+
+  /* change font */
+  .mine-card-title {
+    @apply text-sm  text-white font-coin;
+  }
+  
+  .mine-card-subtitle {
+    @apply text-xs text-[#A5A5A7] ;
+  }
+  
+  .mine-card-stats {
+    @apply flex flex-col justify-center items-center;
+  }
+  
+  .mine-card-stat-row {
+    @apply flex items-center justify-between text-xs;
+  }
+  
+  /* font  */
+  .mine-card-stat-label {
+    @apply text-[#A5A5A7] ;
+  }
+  
+  .mine-card-stat-value {
+    @apply text-yellow-400  flex items-center;
+  }
+  
+  .mine-card-icon {
+    @apply mr-1;
+  }
+  
+  .mine-card-divider-container {
+    @apply flex justify-center items-center pt-1;
+  }
+  
+  .mine-card-divider {
+    @apply border-t border-white w-36;
+  }
+  
+  .mine-card-footer {
+    @apply flex items-center justify-center text-xs pt-1;
+  }
+  
+  /* font */
+  .mine-card-level {
+    @apply text-[#A5A5A7];
+  }
+  
+  .mine-card-vertical-divider {
+    @apply border-r h-3 rounded-lg mx-4 border-white;
+  }
+  
+  .mine-card-cost {
+    @apply text-yellow-400  flex items-center;
+  }
+
+
+  .card-css {
+    background: #29354F;
+    box-shadow: 
+      /* CENTER */
+      0 2px 0 -0px #29354F,
+      0 18px 0 -8px #29354F,
+      0 33px 0 -16px #29354F,
+      0 50px 0 -24px #29354F,
+
+      /* for white line */
+      0 2px 0 1px #EADFDE,
+      0 18px 0 -7px #EADFDE,
+      0 33px 0 -15px #EADFDE,
+      0 50px 0 -23px #EADFDE,
+
+
+      /* LEFT */
+      2px 0px 0 -1px #EADFDE,
+      /* RIGHT */
+      -2px 0px 0 -1px #EADFDE,
+      /* TOP */
+      0px -2px 0 -1px #EADFDE;
+   
+  }
+  
+  

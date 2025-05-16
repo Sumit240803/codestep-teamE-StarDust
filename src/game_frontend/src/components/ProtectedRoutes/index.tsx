@@ -6,7 +6,7 @@ import Loader from "../ui/Loader"
 
 const ProtectedRoutes = ({children} : React.PropsWithChildren) => {
     const auth = useAuth();
-    console.log(auth);
+    //console.log(auth);
     if(!auth) return <Loader/>
     const {isAuthenticated , identity ,principal} = auth;
     const isAuthChecked = isAuthenticated.ii || isAuthenticated.plug;
