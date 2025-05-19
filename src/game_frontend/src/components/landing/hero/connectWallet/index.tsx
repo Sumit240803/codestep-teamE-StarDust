@@ -43,8 +43,12 @@ export default function ConnectWallet({closeModal} : {closeModal:()=>void}) {
     
         try {
             const actor = await auth.login(method);
+
             if(actor) {
                 const response : any = await actor.getUser();
+                const doesExist : string = response.ok? 'true' : 'false';
+                localStorage.setItem("firstTime" , doesExist);
+
                 if(ref_id){
                     targetPath = response.ok ? 'dashboard' : `register?ref=${ref_id}`;
                 } else {
