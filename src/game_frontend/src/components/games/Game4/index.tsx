@@ -1,6 +1,8 @@
 import { useEffect, useRef } from "react";
 import Phaser from "phaser";
 import GameScene from "./GameFiles/GameScene";
+import StartScene from "./GameFiles/StartScene";
+import EndScene from "./GameFiles/EndScene";
 
 export default function Game4() {
   const gameRef = useRef<Phaser.Game | null>(null);
@@ -19,7 +21,7 @@ export default function Game4() {
             debug: false
           }
         },
-        scene: [GameScene]
+        scene: [StartScene, GameScene,EndScene]
       };
 
       gameRef.current = new Phaser.Game(config);

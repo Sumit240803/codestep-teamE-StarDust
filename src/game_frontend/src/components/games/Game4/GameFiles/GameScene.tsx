@@ -15,9 +15,9 @@ scoreText!: Phaser.GameObjects.Text;
 level =1;
 levelText! : Phaser.GameObjects.Text;
 waves = [
-    { id : 1 , spawnTime : 1200 , dir : ['left' , 'right']},
-    { id : 2 , spawnTime : 1200 , dir : ['left' , 'right','top']},
-    { id : 3 , spawnTime : 1200 , dir : ['left' , 'right','top','bottom']},
+    { id : 1 , spawnTime : 1200 , dir : ['left' , 'right'] ,speed : 250},
+    { id : 2 , spawnTime : 1200 , dir : ['left' , 'right','top'] , speed : 350},
+    { id : 3 , spawnTime : 1200 , dir : ['left' , 'right','top','bottom'] , speed : 450},
 ]
 threshold = [0, 51,101,151];
 currentWave = 1;
@@ -110,7 +110,7 @@ this.updateHealthBar();
             if(this.health <=0){
                 this.cameras.main.shake(800,0.04);
                 earth.destroy();
-                this.scene.pause();
+                this.scene.start('endScene' , {score : this.score});
                 //this.scene.restart();
             }
             this.cameras.main.shake(100,0.04);
@@ -181,7 +181,7 @@ this.updateHealthBar();
 
     // Move toward Earth
     const angle = Phaser.Math.Angle.Between(startX, startY, earthX, earthY);
-    const speed = 350;
+    const speed = this.waves[this.currentWave].speed;
     this.physics.velocityFromRotation(angle, speed, laser.body.velocity)
 }
 

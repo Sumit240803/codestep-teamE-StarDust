@@ -13,6 +13,7 @@ import Text "mo:base/Text";
 import _Array "mo:base/Array";
 import Nat "mo:base/Nat";
 import Prelude "mo:base/Prelude";
+import Bool "mo:base/Bool";
 import Types "types";
 
 actor {
@@ -36,13 +37,26 @@ actor {
   let ALL_GAMES: Buffer.Buffer<Types.GameCard> = Buffer.fromArray([
     {id = 1; title = "Rocket Rush" ; description = "Rocket Rush" ; gimage = "/assets/images/game1/bg-1.png" ; gameType = "scorebased"},
     {id = 2; title = "Space Runner" ; description = "Space Runner" ; gimage = "/assets/images/game1/bg-1.png" ; gameType = "scorebased"},
-{id = 3; title = "Space Shooter" ; description = "Space Shooter" ; gimage = "/assets/images/game1/bg-1.png" ; gameType = "scorebased"}
+{id = 3; title = "Space Shooter" ; description = "Space Shooter" ; gimage = "/assets/images/game1/bg-1.png" ; gameType = "scorebased"},
+{id = 4; title = "Terra Gaurd" ; description = "Terra Gaurd" ; gimage = "/assets/images/game1/bg-1.png" ; gameType = "scorebased"},
   ]);
   private func get_game_list() :[Types.GameCard]{
     return Buffer.toArray(ALL_GAMES);
   };
   public shared query func getGameCards():async Result.Result<[Types.GameCard] , Text>{
       return #ok(get_game_list());
+  };
+
+  public func isUser(id :Principal):async Result.Result<Bool,Text>{
+    try{
+      let user = userMap.get(id);
+      if(user!=null){
+        return #ok(true);
+      };
+      return #ok(false);
+    }catch(err){
+      return #err(Error.message(err));
+    }
   };
   // Registering new users
   public shared({caller}) func createUser(user:Types.UserInput,refBy:?Principal):async Result.Result<Types.User,Text>{

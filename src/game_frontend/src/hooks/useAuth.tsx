@@ -51,7 +51,7 @@ const useAuthClient = () => {
 
     if (isAuthenticated && identity && principal && principal.isAnonymous() === false) {
       let userActor = createActor(canID, { agentOptions: { identity: identity } });
-      setActors(userActor)
+      setActors(userActor);
       return userActor
     }
   }

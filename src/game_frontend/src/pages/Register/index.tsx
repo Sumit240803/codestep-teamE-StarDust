@@ -5,7 +5,7 @@ import useRegister from '../../hooks/useRegister';
 
 const RegisterScreen = () => {
   const { playerName, handleSubmit, onChange, isLoading } = useRegister();
-
+  
   return (
     <div
       className="game-container "

@@ -29,6 +29,7 @@ const useRegister = ()=>{
             console.error(err)
         } finally {
             if(!error){
+                localStorage.setItem("firstTime","true")
                 const targetPath = ref_id ? `/dashboard?ref=${ref_id}` : '/dashboard'
                 navigate(targetPath, {replace : true})
             }
