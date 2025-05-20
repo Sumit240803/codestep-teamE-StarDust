@@ -63,6 +63,16 @@ export class EndScreen extends Phaser.Scene{
       callbackScope : this,
       loop : true 
     })
+
+    const btn = this.add.text(450,300,'Play Again',{
+      fontFamily : "Coin Ding Dong",
+      fontSize : '32px',
+      color : "#ffffff"
+    }).setInteractive();
+
+    btn.on("pointerdown",()=>{
+      this.scene.start('RocketRush')
+    })
   
   }
 }

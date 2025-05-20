@@ -25,6 +25,7 @@ export const ListAllGames : React.FC<AllGameDetails> =({GameDetails})=>{
     return(
         <div className='card-grid'>
             {GameDetails?.map((game)=>(
+                <div className={`${game.title}`}>
                 <Game
                 key={game.id}
                 title={game.title}
@@ -34,6 +35,7 @@ export const ListAllGames : React.FC<AllGameDetails> =({GameDetails})=>{
                 id={game.id}
                 onClick={()=>handleGameClick(game.id)}
                 />
+                </div>
             ))}
         </div>
     )

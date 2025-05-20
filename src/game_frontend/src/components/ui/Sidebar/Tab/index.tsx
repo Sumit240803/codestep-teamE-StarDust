@@ -24,7 +24,7 @@ const SidebarTab = memo(({ title, icon }: SideBarChildren)  => {
                 className={`sidebar-tab-container ${isActive ? "active" : ""}`}
             >
                 <img src={icon} alt={title} title={title} />
-                <p className="sidebar-title">{title}</p>
+                <p className={`sidebar-title ${title}`}>{title}</p>
             </div>
         </Link>
     );
