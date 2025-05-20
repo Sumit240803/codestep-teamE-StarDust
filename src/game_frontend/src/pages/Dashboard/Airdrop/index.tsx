@@ -1,9 +1,19 @@
+import { useEffect } from "react";
 import Incentives from "../../../components/dashboard/airdrop/Incentives";
 import AirdropTab from "../../../components/dashboard/airdrop/Tab";
 import Button from "../../../components/ui/Button";
+import helper from "../../../utils/frontendUtil";
 import "./index.css";
+import { useJoyRide } from "../../../context/JoyrideContext";
 
 const Airdrop = () => {
+  const {setSteps , setRun,setStepIndex} = useJoyRide();
+  useEffect(()=>{
+    const newUser = helper();
+    if(newUser === "true"){
+
+    }
+  })
   return (
     <>
       <main className="main-container">
