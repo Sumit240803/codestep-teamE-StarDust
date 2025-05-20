@@ -46,8 +46,8 @@ export default function ConnectWallet({closeModal} : {closeModal:()=>void}) {
 
             if(actor) {
                 const response : any = await actor.getUser();
-                const doesExist : string = response.ok? 'true' : 'false';
-                localStorage.setItem("firstTime" , doesExist);
+                /*const doesExist : string = response.ok? 'true' : 'false';
+                localStorage.setItem("firstTime" , doesExist);*/
 
                 if(ref_id){
                     targetPath = response.ok ? 'dashboard' : `register?ref=${ref_id}`;
@@ -59,6 +59,11 @@ export default function ConnectWallet({closeModal} : {closeModal:()=>void}) {
         } catch (error) {
             console.error("Login failed:", error);
         } finally {
+            if(targetPath =='dashboard'){
+                localStorage.setItem("firstTime", "false")
+            }else if( targetPath == 'register'){
+                localStorage.setItem("firstTime", "true")
+            }
             closeModal();
             navigate(targetPath, {replace:true});
         }

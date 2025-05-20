@@ -1,3 +1,5 @@
+
+import Joyride from 'react-joyride';
 import './index.css';
 import SidebarTab from './Tab';
 
@@ -28,15 +30,21 @@ const SIDEBAR_ITEMS = [
     }
 ]
 
+
+
 const Sidebar = () => {
   return (
+    <>
+  
     <aside className="sidebar">
-      <div className="sidebar-children" aria-orientation="horizontal">
+
+      <div className="sidebar-children step-3" aria-orientation="horizontal">
         {SIDEBAR_ITEMS.map((item, idx) => (
           <SidebarTab key={idx} {...item} />
         ))}
       </div>
     </aside>
+        </>
   );
 };
 

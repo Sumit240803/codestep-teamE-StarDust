@@ -4,11 +4,33 @@ import '../index.css'
 import usePoints from "../../../hooks/usePoints"
 import Loader from "../../../components/ui/Loader"
 import { motion } from "framer-motion"
-import { useState } from "react"
+import { useEffect, useState } from "react"
+import Joyride from "react-joyride"
+import { useJoyRide } from "../../../context/JoyrideContext"
 
 const Exchange = () => {
   const { points, incrementPoints, isLoading } = usePoints(0)
-  const [isPressed, setIsPressed] = useState(false)
+  const [isPressed, setIsPressed] = useState(false);
+   const {setSteps , setRun} = useJoyRide();
+   useEffect(()=>{
+    setSteps([
+       {
+    target: ".step-1",
+    content: "Click on the astronaut to earn points! But that’s just one of many ways to boost your score.",
+  },
+  {
+    target: ".step-2",
+    content: "This progress bar visually fills up as you earn more points. Keep it growing!",
+  },
+  {
+    target: ".step-3",
+    content: "Explore more features and opportunities in StarDust from this sidebar menu.",
+  },
+    ])
+    setRun(true);
+   },[]);
+
+
 
   return (
     <main className="exchange-container  relative w-screen h-full">
@@ -16,9 +38,9 @@ const Exchange = () => {
         <Loader />
       ) : (
         <>
-          <section className="flex items-center justify-center w-screen font-coin z-10">
+          <section className="flex items-center justify-center w-screen font-coin z-10 ">
             <img
-              className="z-100"
+              className="z-100 step-1"
               src="/assets/images/ufo.svg"
               alt="ufo"
               width={50}
@@ -31,16 +53,18 @@ const Exchange = () => {
           </section>
 
           {/* sm screen */}
-          <div className="flex md:hidden rotate-90 z-20 t-10 w-[40%] absolute bottom-20 left-1/2 -translate-x-1/2">
+          <div className="flex md:hidden rotate-90 z-20 t-10 w-[40%] absolute bottom-20 left-1/2 -translate-x-1/2 ">
             <ProgressBar />
           </div>
 
           {/* Medium and Large Screen */}
-          <div className="hidden md:block absolute top-1/2 -bottom-1 -translate-y-1/2 right-10">
+          <div className="hidden md:block absolute top-1/2 -bottom-1 -translate-y-1/2 right-10 step-2">
             <ProgressBar />
           </div>
 
+
           <Sidebar />
+
 
           <motion.section
             onClick={incrementPoints}

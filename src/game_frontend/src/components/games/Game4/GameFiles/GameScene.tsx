@@ -108,9 +108,17 @@ this.updateHealthBar();
             }
             this.updateHealthBar();
             if(this.health <=0){
-                this.cameras.main.shake(800,0.04);
-                earth.destroy();
-                this.scene.start('endScene' , {score : this.score});
+                this.cameras.main.shake(1200,0.04);
+                this.time.addEvent({
+                    delay : 1400,
+                    callback : ()=>{
+                        earth.destroy();
+                        this.scene.start('endScene' , {score : this.score});
+                    },
+                    callbackScope : this,
+                    repeat : 0
+                })
+                
                 //this.scene.restart();
             }
             this.cameras.main.shake(100,0.04);
@@ -181,8 +189,9 @@ this.updateHealthBar();
 
     // Move toward Earth
     const angle = Phaser.Math.Angle.Between(startX, startY, earthX, earthY);
-    const speed = this.waves[this.currentWave].speed;
-    this.physics.velocityFromRotation(angle, speed, laser.body.velocity)
+    //let speed;
+    
+    this.physics.velocityFromRotation(angle, 430, laser.body.velocity)
 }
 
 
