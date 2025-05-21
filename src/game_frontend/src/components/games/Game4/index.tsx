@@ -3,9 +3,13 @@ import Phaser from "phaser";
 import GameScene from "./GameFiles/GameScene";
 import StartScene from "./GameFiles/StartScene";
 import EndScene from "./GameFiles/EndScene";
+import { ActorSubclass } from "@dfinity/agent";
 
-export default function Game4() {
-  const gameRef = useRef<Phaser.Game | null>(null);
+import { MyGameConfig } from "./GameConfig";
+import { _SERVICE } from "../../../../../declarations/StarDustAdventures_backend/StarDustAdventures_backend.did";
+
+export default function Game4({actor} : {actor : ActorSubclass<_SERVICE>}) {
+  const gameRef = useRef<MyGameConfig | null>(null);
   const containerRef = useRef(null);
 
   useEffect(() => {
@@ -24,7 +28,8 @@ export default function Game4() {
         scene: [StartScene, GameScene,EndScene]
       };
 
-      gameRef.current = new Phaser.Game(config);
+      gameRef.current = new MyGameConfig(config,actor);
+      gameRef.current.actor = actor;
     }
 
     // Cleanup Phaser game on unmount

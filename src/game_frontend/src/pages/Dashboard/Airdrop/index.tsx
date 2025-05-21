@@ -5,18 +5,22 @@ import Button from "../../../components/ui/Button";
 import helper from "../../../utils/frontendUtil";
 import "./index.css";
 import { useJoyRide } from "../../../context/JoyrideContext";
+import { airdropSteps } from "../../../steps/appsteps";
 
 const Airdrop = () => {
   const {setSteps , setRun,setStepIndex} = useJoyRide();
   useEffect(()=>{
-    const newUser = helper();
+    /*const newUser = helper();
     if(newUser === "true"){
 
-    }
-  })
+    }*/
+   setSteps(airdropSteps)
+   setStepIndex(0);
+   setTimeout(() => {setRun(true); /*localStorage.setItem("firstTime" , "false")*/}, 150); 
+  },[])
   return (
     <>
-      <main className="main-container">
+      <main className="main-container air-1">
         <section className="main-header">
           <h2 className="page-title">We did it!</h2>
           <div className="ufo-container">
@@ -31,7 +35,7 @@ const Airdrop = () => {
           <p>token is on the market</p>
           <img src="/assets/images/astronaut.webp" alt="astrouant" className="astrouant-img" loading="lazy" />
         </section>
-        <section className="airdrop-body">
+        <section className="airdrop-body air-2">
           <AirdropTab />
           {/* <div className='spacer'></div> */}
           <Incentives />

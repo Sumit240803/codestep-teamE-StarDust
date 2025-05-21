@@ -1,3 +1,8 @@
+import { ActorSubclass } from "@dfinity/agent";
+import { MyGameConfig } from "../GameConfig";
+import { _SERVICE } from "../../../../../../declarations/StarDustAdventures_backend/StarDustAdventures_backend.did";
+
+
 export default class EndScene extends Phaser.Scene{
     endText! : Phaser.GameObjects.Text;
     score =0;
@@ -17,6 +22,12 @@ export default class EndScene extends Phaser.Scene{
     }
 
     create(){
+        const actor = (this.game as MyGameConfig).actor as ActorSubclass<_SERVICE>;
+        if(actor){
+            actor.incrementScore(BigInt(this.score)).then((res)=> console.log("Points Added",res)).catch((err)=>{
+          console.log("Error" , err);
+        });
+        }
         this.bg = this.add.tileSprite(this.width / 2, this.height / 2, this.width, this.height, 'nebula');
         this.endText = this.add.text(400,50,"Game Over",{
             fontSize : "48px",
