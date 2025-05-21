@@ -12,9 +12,10 @@ import Timer "mo:base/Timer";
 import Text "mo:base/Text";
 import _Array "mo:base/Array";
 import Nat "mo:base/Nat";
-import Prelude "mo:base/Prelude";
+import _Prelude "mo:base/Prelude";
 import Bool "mo:base/Bool";
 import Types "types";
+import Ledger "canister:icrc1_ledger_canister";
 
 actor {
   // this map contains list of users
@@ -556,5 +557,40 @@ actor {
       await updatePointsHourly();
     }
   );
+
+
+  //ICRC TOKENS IMPLEMENTATION
+
+  public shared({caller}) func convertToTokens(points : Nat) : async Result.Result<Text,Text>{
+    let tokensPerPoint : Nat = 1000;
+    let tokensToTransfer = points*tokensPerPoint;
+    let result = await Ledger.icrc1_transfer({
+      from_subaccount = null;
+      to = {
+        owner = caller;
+        subaccount = null;
+      };
+      amount = tokensToTransfer;
+      fee= null;
+      memo = null;
+      created_at_time = null;
+    });
+    switch(result){
+      case(#Ok(blockIndex)){
+        return #ok("Transferred Successfully at block " # Nat.toText(blockIndex));
+      };
+      case(#Err(e)){
+        return #err("Transfer failed: " # debug_show(e));
+      }
+    }
+  };
+
+  public shared({caller}) func getMyTokenBalance() : async Nat{
+    let result = await Ledger.icrc1_balance_of({
+      owner = caller;
+      subaccount = null;
+    });
+    return result;
+  }
 
 };

@@ -23,7 +23,7 @@ const GamePage = () => {
   1: <Game1 actor={auth?.actors} />,
   2: <Game2 actor={auth?.actors} />,
   3: <Game3 actor={auth?.actors} />,
-  4: <Game4/>
+  4: <Game4 actor={auth?.actors}/>
   
 }
 
