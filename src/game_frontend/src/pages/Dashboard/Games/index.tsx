@@ -36,7 +36,7 @@ const Games : React.FC = () => {
      
 
     <div className="card-container-header">
-        <h2 className="card-title">Game Arena</h2>
+       
       </div>
         <div className="mine-card-container">
               <div className="mine-card-inner">

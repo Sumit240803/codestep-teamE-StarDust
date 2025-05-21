@@ -1,6 +1,8 @@
-import React from 'react';
+import React, { useEffect } from 'react';
 import MineCardTabSwitch from '../../../components/dashboard/Earn/MineCardTabSwitch';
 import './index.css';
+import { useJoyRide } from '../../../context/JoyrideContext';
+import { cardStep } from '../../../steps/appsteps';
 
 // const MyCardsData = [
 //   {
@@ -99,9 +101,10 @@ import './index.css';
 // ];
 
 const CardContainer: React.FC = () => {
+ 
   return (
     <div>
-      <div className="card-container-header">
+      <div className="card-container-header ">
         <h2 className="card-title">Mine cards</h2>
       </div>
       <MineCardTabSwitch/>

@@ -33,7 +33,7 @@ const Exchange = () => {
   setSteps(exchangeSteps);
   setStepIndex(0);
   // Slight delay ensures steps are registered before starting
-  setTimeout(() => {setRun(true); localStorage.setItem("firstTime" , "false")}, 150); 
+  setTimeout(() => {setRun(true); /*localStorage.setItem("firstTime" , "false")*/}, 150); 
 //}
 }, []);
 
@@ -72,8 +72,7 @@ const Exchange = () => {
 
 
           <Sidebar />
-
-
+<div className="">
          <motion.section
   onClick={incrementPoints}
   className={`step-1 click-to-earn ${isPressed ? "glow" : ""}`}
@@ -87,14 +86,15 @@ const Exchange = () => {
     position: 'fixed',
     top: '30%',
     left: '45%',
-   
+    
     width: '300px',     // adjust as needed
     height: '500px',    // adjust as needed
     backgroundRepeat: 'no-repeat',
     backgroundSize: 'contain',
-    zIndex: 1,
+    zIndex: 10,
   }}
 />
+  </div>
 {particles.map((p, i) => (
   <motion.div
     key={i}

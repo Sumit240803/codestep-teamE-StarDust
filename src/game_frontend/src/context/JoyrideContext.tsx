@@ -43,10 +43,11 @@ export const JoyRideProvider = ({children} : {children : ReactNode})=>{
             continuous
             showProgress
             showSkipButton
+            disableOverlay
             styles={{
     options: {
       zIndex: 10000,
-      primaryColor: '#5a0078',
+      primaryColor: '#ffffff',
       textColor: '#25043b',      
       backgroundColor: '#ecd7fa',
       arrowColor: '#fff',     
