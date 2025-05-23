@@ -1,3 +1,5 @@
+
+
 interface AuthProviderProps{
     login: (method: "ii" | "plug") => Promise<any>;
     logout: () => Promise<void>;
@@ -8,4 +10,5 @@ interface AuthProviderProps{
     identity: any;
     principal: any;
     actors: ActorSubclass<_SERVICE>;
+    nftActors : ActorSubclass<_SERVICE>;
 }

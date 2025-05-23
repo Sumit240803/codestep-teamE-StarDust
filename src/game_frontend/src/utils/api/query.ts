@@ -1,5 +1,6 @@
 import { ActorSubclass } from "@dfinity/agent"
 import { _SERVICE } from "../../../../declarations/StarDustAdventures_backend/StarDustAdventures_backend.did"
+import { _SERVICE as nftService } from "../../../../declarations/nft_canister/nft_canister.did";
 import { useQuery } from "react-query"
 import api from "."
 
@@ -29,4 +30,9 @@ export const GET_ALL_CARDS = (actor : ActorSubclass<_SERVICE>)=>{
 
 export const GET_ALL_GAMES = (actor : ActorSubclass<_SERVICE>)=>{
     return useQuery('all_games',async()=>api.query(()=>actor.getGameCards()))
+}
+
+
+export const GET_TOKEN_BALANCE = (actor : ActorSubclass<_SERVICE>)=>{
+    return useQuery('all_tokens' , async()=>api.query(()=>actor.getMyTokenBalance()))
 }

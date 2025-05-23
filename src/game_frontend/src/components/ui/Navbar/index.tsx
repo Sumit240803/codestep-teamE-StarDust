@@ -4,10 +4,13 @@ import useWallet from "../../../hooks/useWallet";
 import { Link } from "react-router-dom";
 import usePoints from "../../../hooks/usePoints";
 import Loader from "../Loader";
+import { useTokens } from "../../../hooks/useTokens";
 
 
 const Navbar: React.FC<NavbarProps> = ({ profitPerHour = 0.3 }) => {
   const WalletImage = useWallet();
+
+  const { tokens, isLoading, isError, refetch } = useTokens();
   
   return (
     <header className="header">
@@ -40,6 +43,15 @@ const Navbar: React.FC<NavbarProps> = ({ profitPerHour = 0.3 }) => {
                 <span className="profit-amount">+{profitPerHour}</span>
               </span>
             </div>
+            <div className="flex items-center">
+              <img
+              src="/assets/stardust.png"
+              className="w-10"
+              />
+
+              <div className="token-font">{tokens.toString()} SD</div>
+            </div>
+           
             
             <Link to="/dashboard/profile">
               <div className="character-icon">
