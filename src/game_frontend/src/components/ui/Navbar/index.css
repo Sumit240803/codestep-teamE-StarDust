@@ -23,7 +23,9 @@
 .nav-separator {
   @apply bg-[#E3DEEA] rounded-lg h-[40px] w-1;
 }
-
+.token-font{
+  font-family: "Coin Ding Dong"
+}
 /* Stats container */
 .nav-stats-container {
   @apply flex flex-row w-full justify-between;

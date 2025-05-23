@@ -15,5 +15,6 @@ module {
         id : TokenId;
         owner : Principal;
         metadata : MetaData;
+        price : Nat;
     };
 }

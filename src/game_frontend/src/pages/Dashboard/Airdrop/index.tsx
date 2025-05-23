@@ -6,14 +6,19 @@ import helper from "../../../utils/frontendUtil";
 import "./index.css";
 import { useJoyRide } from "../../../context/JoyrideContext";
 import { airdropSteps } from "../../../steps/appsteps";
+import { useTokens } from "../../../hooks/useTokens";
+import usePoints from "../../../hooks/usePoints";
 
 const Airdrop = () => {
   const {setSteps , setRun,setStepIndex} = useJoyRide();
+  const {points} = usePoints()
+  const { tokens, isLoading, isError, refetch,convertPointsToToken } = useTokens();
   useEffect(()=>{
     /*const newUser = helper();
     if(newUser === "true"){
 
     }*/
+
    setSteps(airdropSteps)
    setStepIndex(0);
    setTimeout(() => {setRun(true); /*localStorage.setItem("firstTime" , "false")*/}, 150); 
@@ -41,11 +46,12 @@ const Airdrop = () => {
           <Incentives />
         </section>
         <div className="flex justify-center lg:justify-start mt-10 lg:mt-0 ">
-          <Button
+          <Button 
+          onClick={()=> convertPointsToToken.mutate(BigInt(points*1000))}
             title="Choose a withdrawal option"
             className="withdrawal-btn "
           >
-            Choose a withdrawal option
+            Convert Your GamePoints 
           </Button>
         </div>
       </main>

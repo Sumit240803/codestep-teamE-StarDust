@@ -55,3 +55,14 @@ export const useAddPoints = (actor: ActorSubclass<_SERVICE>, score: bigint) => {
     },
   });
 };
+
+export const pointsToToken = (actor : ActorSubclass<_SERVICE>)=>{
+    const queryClient = useQueryClient();
+    return useMutation({
+        mutationKey : ['tokens'],
+        mutationFn : async(points : bigint)=> api.update(()=>actor.convertToTokens(points)),
+        onSuccess : ()=>{
+            queryClient.invalidateQueries('tokens');
+        }
+    })
+}

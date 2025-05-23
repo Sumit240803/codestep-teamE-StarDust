@@ -42,10 +42,14 @@ export default function ConnectWallet({closeModal} : {closeModal:()=>void}) {
         let targetPath = ""
     
         try {
-            const actor = await auth.login(method);
-
-            if(actor) {
-                const response : any = await actor.getUser();
+            const {userActor ,nftActor} = await auth.login(method);
+            console.log(auth.nftActors.getMarketplaceNfts)
+            
+            //console.log(actors.);
+            
+            if(userActor) {
+                const response : any = await userActor.getUser();
+                console.log(response);
                 /*const doesExist : string = response.ok? 'true' : 'false';
                 localStorage.setItem("firstTime" , doesExist);*/
 

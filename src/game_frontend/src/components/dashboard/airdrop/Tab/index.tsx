@@ -1,29 +1,24 @@
 // import Button from "../../../ui/Button";
 import usePoints from "../../../../hooks/usePoints";
+import { useTokens } from "../../../../hooks/useTokens";
 import { Tabs, Tab, TabPanel } from "../../../ui/Tab";
 import "./index.css";
 const TokenPanel = () => {
   const {points} = usePoints()
+  const { tokens, isLoading, isError, refetch } = useTokens();
   return (
     <TabPanel index={0}>
       <table className="tokenpanel">
         <tbody className="tokenpanel-body">
           <tr>
-            <td>Total Tokens</td>
-            <td>0</td>
+            <td>Tokens</td>
+            <td>{tokens.toString()}</td>
           </tr>
           <tr>
-            <td>Claimed</td>
-            <td>0</td>
-          </tr>
-          <tr>
-            <td>Vesting</td>
+            <td>Game Points</td>
             <td>{points.toFixed(3)}</td>
           </tr>
-          <tr>
-            <td>Available at October 6th</td>
-            <td>0</td>
-          </tr>
+          
         </tbody>
       </table>
       {/* <Button title="Choose a withdrawal option" className="withdrawal-button">

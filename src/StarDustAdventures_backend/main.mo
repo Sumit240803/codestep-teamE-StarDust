@@ -562,7 +562,16 @@ actor {
   //ICRC TOKENS IMPLEMENTATION
 
   public shared({caller}) func convertToTokens(points : Nat) : async Result.Result<Text,Text>{
-    let tokensPerPoint : Nat = 1000;
+    let ?user = userMap.get(caller) else return #err(Constants.ERRORS.userNotFound);
+    switch(decrementPoints(user,points)){
+      case(#err(e)){
+        return #err(e);
+      };
+      case(#ok(updated_user)){
+        userMap.put(caller,updated_user)
+      }
+    };
+    let tokensPerPoint : Nat = 10;
     let tokensToTransfer = points*tokensPerPoint;
     let result = await Ledger.icrc1_transfer({
       from_subaccount = null;
