@@ -3,33 +3,14 @@ import "./index.css"
 import { Tab, TabPanel, Tabs } from '../../../components/ui/Tab'
 import { ListAllGames } from '../../../components/dashboard/games/GamesCard'
 import { useAllGameCards } from '../../../hooks/useGames'
+import { useMarket } from '../../../hooks/useMarket'
+import MarketPlace from '../../../components/dashboard/games/MarketPlace'
 
 const Games : React.FC = () => {
 
-    /*const ALL_GAMES = [
-        {
-          title: "Rocket Rush",
-          image: "/assets/images/game1/bg-1.png",
-          description: "Blast off and race through the galaxy to reach new heights!",
-          winBonus: 150,
-          energy: 20
-        },
-        {
-          title: "Treasure Hunt",
-          image: "/assets/images/mine02.svg",
-          description: "Dive into mysterious caves and find hidden treasures.",
-          winBonus: 200,
-          energy: 25
-        },
-        {
-          title: "Mystic Maze",
-          image: "/assets/images/mine03.svg",
-          description: "Navigate through endless mazes full of magic and traps.",
-          winBonus: 180,
-          energy: 15
-        }
-      ];*/
+
       const {allGames , isLoading} = useAllGameCards();
+      const {nfts} = useMarket();
       
   return (
     <div>
@@ -56,7 +37,7 @@ const Games : React.FC = () => {
                   </TabPanel>
 
                   <TabPanel index={1}>
-                    <p className='coin-ding-dong'>This is Marketplace</p>
+                    <p className='coin-ding-dong'><MarketPlace MarketData={nfts}/></p>
                   </TabPanel>
                 </Tabs>
               </div>

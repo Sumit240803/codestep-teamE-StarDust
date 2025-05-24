@@ -1,7 +1,6 @@
-interface MarketData{
-    id : number;
-    name : string;
-    img : string;
-    description : string;
-    
+interface MarketData {
+    id: bigint;
+    name: string;
+    img: string;
+    price: bigint;
 }

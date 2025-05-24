@@ -1,13 +1,15 @@
+import "./index.css"
 interface MarketProps {
-    id : number;
-    name : string;
-    img : string;
-    description : string;
+    id: bigint;
+    name: string;
+    img: string;
+
+    price: bigint;
     onClick? : ()=> void;
 }
 
 const Market : React.FC<MarketProps> = ({
-    id,name,img,description,onClick
+    id,name,img,price ,onClick
 })=>{
     return(
     <div className="mine-card-wrapper" onClick={onClick}>
@@ -24,7 +26,7 @@ const Market : React.FC<MarketProps> = ({
             <div className="mine-card-content">
               <div className="mine-card-header">
                 <h3 className="mine-card-title">{name}</h3>
-                <p className="mine-card-subtitle">{description}</p>
+                <p className="mine-card-subtitle">{price.toString()}</p>
               </div>
               
               <div className="mine-card-stats">
