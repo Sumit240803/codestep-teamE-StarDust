@@ -11,4 +11,5 @@ interface AuthProviderProps{
     principal: any;
     actors: ActorSubclass<_SERVICE>;
     nftActors : ActorSubclass<_SERVICE>;
+    tokenActors :ActorSubclass<_SERVICE>;
 }

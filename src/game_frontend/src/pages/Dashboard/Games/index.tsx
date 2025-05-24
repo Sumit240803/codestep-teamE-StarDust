@@ -5,12 +5,15 @@ import { ListAllGames } from '../../../components/dashboard/games/GamesCard'
 import { useAllGameCards } from '../../../hooks/useGames'
 import { useMarket } from '../../../hooks/useMarket'
 import MarketPlace from '../../../components/dashboard/games/MarketPlace'
+import Owned from '../../../components/dashboard/games/Owned'
+import { useOwned } from '../../../hooks/useOwned'
 
 const Games : React.FC = () => {
 
 
       const {allGames , isLoading} = useAllGameCards();
       const {nfts} = useMarket();
+      const {owned} = useOwned();
       
   return (
     <div>
@@ -29,6 +32,7 @@ const Games : React.FC = () => {
                     <Tab index={1}>
                       <p>MarketPlace</p>
                     </Tab>
+                    <Tab index={2}>Owned</Tab>
                     
                   </div>
         
@@ -37,7 +41,10 @@ const Games : React.FC = () => {
                   </TabPanel>
 
                   <TabPanel index={1}>
-                    <p className='coin-ding-dong'><MarketPlace MarketData={nfts}/></p>
+                    <div className='coin-ding-dong'><MarketPlace MarketData={nfts}/></div>
+                  </TabPanel>
+                  <TabPanel index={2}>
+                    <div className='coin-ding-dong'><Owned MarketData={owned}/> </div>
                   </TabPanel>
                 </Tabs>
               </div>

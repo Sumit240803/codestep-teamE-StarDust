@@ -25,7 +25,7 @@ export const ListAllGames : React.FC<AllGameDetails> =({GameDetails})=>{
     return(
         <div className='card-grid'>
             {GameDetails?.map((game)=>(
-                <div className={`${game.title}`}>
+                <div key={game.id} className={`${game.title}`}>
                 <Game
                 key={game.id}
                 title={game.title}

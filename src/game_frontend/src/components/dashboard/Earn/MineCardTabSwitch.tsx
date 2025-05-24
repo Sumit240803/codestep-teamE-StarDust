@@ -10,12 +10,12 @@ import { cardStep } from "../../../steps/appsteps";
 
 const MineCardTabSwitch=()=>{
   const {allCards, userCards, isLoading} = useAllCards()
-   const {setSteps , setRun,setStepIndex} = useJoyRide();
-  useEffect(()=>{
+   //const {setSteps , setRun,setStepIndex} = useJoyRide();
+ /* useEffect(()=>{
     setSteps(cardStep)
     setStepIndex(0);
-    setTimeout(() => {setRun(true); /*localStorage.setItem("firstTime" , "false")*/}, 150); 
-  },[])
+    setTimeout(() => {setRun(true); /*localStorage.setItem("firstTime" , "false")}, 150); 
+  },[])*/
   return (
     <div className="mine-card-container">
       <div className="mine-card-inner"> 
