@@ -36,3 +36,18 @@ export const GET_ALL_GAMES = (actor : ActorSubclass<_SERVICE>)=>{
 export const GET_TOKEN_BALANCE = (actor : ActorSubclass<_SERVICE>)=>{
     return useQuery('all_tokens' , async()=>api.query(()=>actor.getMyTokenBalance()))
 }
+
+
+export const GET_ALL_NFTS = (actor : ActorSubclass<nftService>)=>{
+    return useQuery<Array<NFT>>('all_nfts', async()=>api.query(()=> actor.getMarketplaceNfts()) as Promise<NFT[]>);
+}
+
+type NFT = {
+  id: bigint;
+  owner: string;
+  metadata: {
+    name: string;
+    media_url: string;
+  };
+  price: bigint;
+};

@@ -10,7 +10,7 @@ const MarketPlace : React.FC<MarketPlaceProps>= ({MarketData}) => {
         <Market
         id={data.id}
         name={data.name}
-        description={data.description}
+        price={data.price}
         img={data.img}
         />
       ))}

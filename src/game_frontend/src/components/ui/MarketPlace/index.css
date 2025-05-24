@@ -13,7 +13,7 @@
   }
   
   .mine-card-image {
-    @apply w-full h-full  object-cover;
+    @apply w-64 h-full  object-cover;
   }
   
   .mine-card-content {
