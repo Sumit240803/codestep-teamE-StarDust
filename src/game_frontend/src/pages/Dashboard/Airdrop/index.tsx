@@ -10,19 +10,19 @@ import { useTokens } from "../../../hooks/useTokens";
 import usePoints from "../../../hooks/usePoints";
 
 const Airdrop = () => {
-  const {setSteps , setRun,setStepIndex} = useJoyRide();
+  //const {setSteps , setRun,setStepIndex} = useJoyRide();
   const {points} = usePoints()
   const { tokens, isLoading, isError, refetch,convertPointsToToken } = useTokens();
-  useEffect(()=>{
-    /*const newUser = helper();
+  /*useEffect(()=>{
+    const newUser = helper();
     if(newUser === "true"){
 
-    }*/
+    }
 
    setSteps(airdropSteps)
    setStepIndex(0);
-   setTimeout(() => {setRun(true); /*localStorage.setItem("firstTime" , "false")*/}, 150); 
-  },[])
+   setTimeout(() => {setRun(true); /*localStorage.setItem("firstTime" , "false")}, 150); 
+  },[])*/
   return (
     <>
       <main className="main-container air-1">
@@ -47,7 +47,7 @@ const Airdrop = () => {
         </section>
         <div className="flex justify-center lg:justify-start mt-10 lg:mt-0 ">
           <Button 
-          onClick={()=> convertPointsToToken.mutate(BigInt(points*1000))}
+          onClick={()=> convertPointsToToken.mutate(BigInt(Math.floor(points*1000)))}
             title="Choose a withdrawal option"
             className="withdrawal-btn "
           >

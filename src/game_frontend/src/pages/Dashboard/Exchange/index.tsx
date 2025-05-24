@@ -20,12 +20,12 @@ const Exchange = () => {
 
   const { points, incrementPoints, isLoading } = usePoints(0)
   const [isPressed, setIsPressed] = useState(false);
-   const {setSteps , setRun,setStepIndex} = useJoyRide();
+   //const {setSteps , setRun,setStepIndex} = useJoyRide();
    //const [show , setShow] = useState<string | null>("");
    /*if(typeof window !== 'undefined'){
       (console.log(localStorage.getItem('firstTime')))
    }*/
-   useEffect(() => {
+   /*useEffect(() => {
   //  if(localStorage.getItem('firstTime') === "true"){
 
       
@@ -33,9 +33,9 @@ const Exchange = () => {
   setSteps(exchangeSteps);
   setStepIndex(0);
   // Slight delay ensures steps are registered before starting
-  setTimeout(() => {setRun(true); /*localStorage.setItem("firstTime" , "false")*/}, 150); 
+  setTimeout(() => {setRun(true); /*localStorage.setItem("firstTime" , "false")}, 150); 
 //}
-}, []);
+}, []);*/
 
 
 

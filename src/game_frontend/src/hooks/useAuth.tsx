@@ -4,11 +4,13 @@ import { AuthClient } from '@dfinity/auth-client';
 import { idlFactory } from '../../../declarations/StarDustAdventures_backend';
 import { createActor } from '../../../declarations/StarDustAdventures_backend';
 import {canisterId as nftCanId , createActor as nftActor , idlFactory as nftIdl, nft_canister} from "../../../declarations/nft_canister";
+import {canisterId as tokenId ,createActor as tokenActor , idlFactory as tokenIDl , icrc1_ledger_canister} from "../../../declarations/icrc1_ledger_canister";
 
 const AuthContext = createContext<AuthProviderProps | undefined>(undefined);
 
 const canID = canisterId;
 const nftId = nftCanId;
+const tokenCanID = tokenId;
 const useAuthClient = () => {
 
   const [authClient, setAuthClient] = useState<AuthClient | null>(null);
@@ -17,6 +19,7 @@ const useAuthClient = () => {
   const [principal, setPrincipal] = useState<any>(null);
   const [actors, setActors] = useState(StarDustAdventures_backend);
   const [nftActors, setNftActors] = useState(nft_canister);
+  const [tokenActors, setTokenActors] = useState(icrc1_ledger_canister);
 
   const initializeClient = async () => {
     const client = await AuthClient.create();
@@ -32,9 +35,11 @@ const useAuthClient = () => {
 
         const userActor = createActor(canID , { agentOptions : { identity : identity } });
         const nftActors = nftActor(nftId,{agentOptions :{identity : identity}})
+        const TokenActors = tokenActor(tokenId , {agentOptions : {identity : identity}});
 
         setActors(userActor);
         setNftActors(nftActors);
+        setTokenActors(TokenActors);
       }
     }
   };
@@ -56,9 +61,11 @@ const useAuthClient = () => {
     if (isAuthenticated && identity && principal && principal.isAnonymous() === false) {
       let userActor = createActor(canID, { agentOptions: { identity: identity } });
       let nftUserActor = nftActor(nftId, { agentOptions: { identity: identity } });
+      let tokenUserActor = tokenActor(tokenId)
       setActors(userActor);
       setNftActors(nftUserActor);
-      return {userActor,nftUserActor}
+      setTokenActors(tokenUserActor);
+      return {userActor,nftUserActor,tokenUserActor}
     }
   }
 
@@ -89,7 +96,7 @@ const useAuthClient = () => {
   const handlePlugLogin = async () => {
     if (!window.ic?.plug) throw new Error("Plug not installed");
 
-    const whitelist = [canID,nftId];
+    const whitelist = [canID,nftId,tokenCanID];
     const host = process.env.DFX_NETWORK === "ic" ? "https://icp0.io" : "http://127.0.0.1:4943";
     const isConnected = await window.ic.plug.requestConnect({ whitelist, host });
 
@@ -109,8 +116,13 @@ const useAuthClient = () => {
         canisterId : nftId,
         interfaceFactory : nftIdl
       })
+      const tokenActor = await window.ic.plug.createActor({
+        canisterId : tokenCanID,
+        interfaceFactory : tokenIDl
+      })
       setActors(userActor);
       setNftActors(nftActor);
+      setTokenActors(tokenActor);
       return {userActor ,nftActor}
     } else {
       throw new Error("Plug connection refused");
@@ -125,6 +137,7 @@ const useAuthClient = () => {
       setPrincipal(null);
       setActors(StarDustAdventures_backend);
       setNftActors(nft_canister);
+      setTokenActors(icrc1_ledger_canister);
     } else{
       throw new Error("AuthClient is not initialized");
     }
@@ -143,7 +156,8 @@ const useAuthClient = () => {
     identity,
     principal,
     actors,
-    nftActors
+    nftActors,
+    tokenActors
   };
 };
 

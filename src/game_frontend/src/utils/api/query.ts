@@ -3,6 +3,7 @@ import { _SERVICE } from "../../../../declarations/StarDustAdventures_backend/St
 import { _SERVICE as nftService } from "../../../../declarations/nft_canister/nft_canister.did";
 import { useQuery } from "react-query"
 import api from "."
+import { Principal } from "@dfinity/principal";
 
 export const GET_USER = (actor : ActorSubclass<any>)=>{
     return useQuery('user', async()=>api.query(()=>actor.getUser()))
@@ -51,3 +52,7 @@ type NFT = {
   };
   price: bigint;
 };
+
+export const OWNED = (actor : ActorSubclass<nftService> , principal : any)=>{
+    return useQuery<Array<NFT>>('owned' , async()=>api.query(()=>actor.ownedNfts(principal)) as Promise<NFT[]>)
+}

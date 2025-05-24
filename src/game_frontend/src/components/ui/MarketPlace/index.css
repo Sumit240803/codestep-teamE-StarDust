@@ -1,19 +1,19 @@
 
   /* Card styles */
   .mine-card-wrapper {
-    @apply m-2.5 mb-10;
+    @apply m-2.5 mb-10 flex ;
   }
   
   .mine-card {
-    @apply bg-[#29354F] rounded-t-[1px] overflow-hidden shadow-lg;
+    @apply bg-[#29354F] rounded-t-[1px] overflow-hidden shadow-lg p-1;
   }
   
   .mine-card-image-container {
-    @apply h-28 bg-cover bg-center relative;
+    @apply h-full bg-cover bg-center relative;
   }
   
   .mine-card-image {
-    @apply w-64 h-full  object-cover;
+    @apply w-56 h-full  object-cover;
   }
   
   .mine-card-content {
@@ -55,7 +55,7 @@
   }
   
   .mine-card-divider-container {
-    @apply flex justify-center items-center pt-1;
+    @apply flex justify-center items-center pt-1 text-center;
   }
   
   .mine-card-divider {
@@ -81,13 +81,13 @@
 
 
   .card-css {
-    background: #29354F;
+    background: #083d36b6;
     box-shadow: 
       /* CENTER */
-      0 2px 0 -0px #29354F,
-      0 18px 0 -8px #29354F,
-      0 33px 0 -16px #29354F,
-      0 50px 0 -24px #29354F,
+      0 2px 0 -0px #052722,
+      0 18px 0 -8px #031512,
+      0 33px 0 -16px #020e0c,
+      0 50px 0 -24px #000000,
 
       /* for white line */
       0 2px 0 1px #EADFDE,

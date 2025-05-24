@@ -40,24 +40,37 @@ actor NFTCanister {
   return filtered;
 };
 
-
+/*
 public shared({caller}) func buyNft(tokenId: Nat) : async Result.Result<Text, Text> {
- let nftOpt = Array.find<Types.NFT>(nfts, func(nft : Types.NFT) : Bool {
-  nft.id == tokenId
-});
+  Debug.print("buyNft called by: " # Principal.toText(caller));
+  Debug.print("Searching for NFT with ID: " # Nat.toText(tokenId));
 
+  let nftOpt = Array.find<Types.NFT>(nfts, func(nft : Types.NFT) : Bool {
+    nft.id == tokenId
+  });
 
   switch (nftOpt) {
     case null {
+      Debug.print("NFT not found for ID: " # Nat.toText(tokenId));
       return #err("NFT not found");
     };
     case (?nft) {
-      if (nft.owner == caller) return #err("You already own this NFT");
-      let balance =  await Ledger.icrc1_balance_of({
-      owner = caller;
-      subaccount = null;
-    });
-    Debug.print("Balance : " # Nat.toText(balance));
+      Debug.print("NFT found. Owner: " # Principal.toText(nft.owner));
+      
+      if (nft.owner == caller) {
+        Debug.print("Caller already owns this NFT.");
+        return #err("You already own this NFT");
+      };
+
+      Debug.print("Fetching balance for caller...");
+      let balance = await Ledger.icrc1_balance_of({
+        owner = caller;
+        subaccount = null;
+      });
+      Debug.print("Balance: " # Nat.toText(balance));
+      Debug.print("NFT price: " # Nat.toText(nft.price));
+
+      Debug.print("Attempting token transfer to: " # Principal.toText(nft.owner));
       let transferResult = await Ledger.icrc1_transfer({
         from_subaccount = null;
         to = {
@@ -70,8 +83,11 @@ public shared({caller}) func buyNft(tokenId: Nat) : async Result.Result<Text, Te
         created_at_time = null;
       });
 
+      Debug.print("Transfer Result: " # debug_show(transferResult));
+
       switch (transferResult) {
         case (#Ok(_)) {
+          Debug.print("Transfer successful. Updating NFT ownership...");
           nfts := Array.map<Types.NFT, Types.NFT>(nfts, func(n : Types.NFT) : Types.NFT {
             if (n.id == tokenId) {
               {
@@ -82,6 +98,70 @@ public shared({caller}) func buyNft(tokenId: Nat) : async Result.Result<Text, Te
               }
             } else n
           });
+          Debug.print("NFT ownership updated.");
+          return #ok("NFT purchased successfully");
+        };
+        case (#Err(e)) {
+          Debug.print("Transfer failed: " # debug_show(e));
+          return #err("Token transfer failed: " # debug_show(e));
+        };
+      };
+    };
+  };
+}*/
+public shared({caller}) func buyNft(tokenId: Nat) : async Result.Result<Text, Text> {
+  Debug.print("Searching for NFT with ID: " # Nat.toText(tokenId));
+
+  let nftOpt = Array.find<Types.NFT>(nfts, func(nft : Types.NFT) : Bool {
+    nft.id == tokenId
+  });
+
+  switch (nftOpt) {
+    case null {
+      Debug.print("NFT not found.");
+      return #err("NFT not found");
+    };
+    case (?nft) {
+      Debug.print("NFT found. Owner: " # Principal.toText(nft.owner));
+
+      if (nft.owner == caller) {
+        return #err("You already own this NFT");
+      };
+
+      // Step 1: Use transfer_from to pull tokens from caller
+      Debug.print("Attempting transfer_from from caller: " # Principal.toText(caller));
+      let transferResult = await Ledger.icrc2_transfer_from({
+        spender_subaccount = null;
+        from = {
+          owner = caller;
+          subaccount = null;
+        };
+        to = {
+          owner = nft.owner;
+          subaccount = null;
+        };
+        amount = nft.price;
+        fee = null;
+        memo = null;
+        created_at_time = null;
+      });
+
+      Debug.print("Transfer result: " # debug_show(transferResult));
+
+      switch (transferResult) {
+        case (#Ok(_)) {
+          // Update NFT owner
+          nfts := Array.map<Types.NFT, Types.NFT>(nfts, func(n : Types.NFT) : Types.NFT {
+            if (n.id == tokenId) {
+              {
+                id = n.id;
+                owner = caller;
+                metadata = n.metadata;
+                price = n.price;
+              }
+            } else n
+          });
+
           return #ok("NFT purchased successfully");
         };
         case (#Err(e)) {

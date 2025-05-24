@@ -1,7 +1,10 @@
 import { ActorSubclass } from "@dfinity/agent"
 import { _SERVICE } from "../../../../declarations/StarDustAdventures_backend/StarDustAdventures_backend.did"
+import { _SERVICE as nftService } from "../../../../declarations/nft_canister/nft_canister.did"
 import { useMutation, useQueryClient } from "react-query"
 import api from "."
+import { useAuth } from "../../hooks/useAuth"
+import { Principal } from "@dfinity/principal"
 
 
 type CreateUserData={
@@ -65,4 +68,44 @@ export const pointsToToken = (actor : ActorSubclass<_SERVICE>)=>{
             queryClient.invalidateQueries('tokens');
         }
     })
+}
+export const buyNFT = (actor: ActorSubclass<nftService>,tokenActor :any) => {
+  const queryClient = useQueryClient();
+  return useMutation({
+    mutationKey: ['nfts'],
+    mutationFn: async ({ id, price }: { id: any; price: any }) => {
+      const nftCanId = process.env.CANISTER_ID_NFT_CANISTER!;
+
+      
+
+      await approvedNFTspending({ amount: price, nftCanId,tokenActor });
+      return api.update(() => actor.buyNft(id));
+    },
+    onSuccess: () => {
+      queryClient.invalidateQueries('nfts');
+      console.log('Purchased');
+    },
+    onError: (err) => {
+      console.log('Error purchasing NFT:', err);
+    },
+  });
+};
+
+async function approvedNFTspending({ amount, nftCanId,tokenActor}: { amount: any,nftCanId : string,tokenActor : any} ){
+   /* const auth = useAuth();
+    const tokenActor = auth?.tokenActors;*/
+   const result = await tokenActor.icrc2_approve({
+    from_subaccount: [],
+    spender: {
+      owner: Principal.fromText(nftCanId),
+      subaccount: [],
+    },
+    amount: BigInt(String(amount)),
+    expires_at: [],
+    expected_allowance: [],
+    fee: [],
+    memo: [],
+    created_at_time: [],
+  });
+  console.log("Result Approved",result);
 }
