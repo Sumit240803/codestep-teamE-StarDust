@@ -73,16 +73,31 @@ export const buyNFT = (actor: ActorSubclass<nftService>,tokenActor :any) => {
   const queryClient = useQueryClient();
   return useMutation({
     mutationKey: ['nfts'],
-    mutationFn: async ({ id, price }: { id: any; price: any }) => {
+    mutationFn: async ({ id, price,userPrincipal }: { id: any; price: any,userPrincipal : any }) => {
       const nftCanId = process.env.CANISTER_ID_NFT_CANISTER!;
 
-      
+      console.log("Approving Result for NFT Canister Id",nftCanId,' .....');
 
-      await approvedNFTspending({ amount: price, nftCanId,tokenActor });
+     const approveResult = await approvedNFTspending({ amount: price, nftCanId,tokenActor });
+      if ("Err" in approveResult) {
+  console.error("Approval failed:", approveResult.Err);
+  return;
+}
+console.log("Wating For 1 second before tranfer",' .....');
+await new Promise((res) => setTimeout(res, 1000));
+console.log("Transferring Result for NFT Canister Id",nftCanId,'with tokenActor',tokenActor, "and user principal" , userPrincipal ,'for amount ', price  ,' .....');
+const transferResult = await transfer({tokenActor,fromPrincipal : userPrincipal.toText(),toPrincipal : nftCanId , amount : price});
+if("Err" in transferResult){
+  console.log("Error tranferring : ", transferResult.Err);
+  return;
+}
+      
+console.log("Buying NFT Now.....")
       return api.update(() => actor.buyNft(id));
     },
     onSuccess: () => {
       queryClient.invalidateQueries('nfts');
+      queryClient.invalidateQueries('owned');
       console.log('Purchased');
     },
     onError: (err) => {
@@ -90,22 +105,60 @@ export const buyNFT = (actor: ActorSubclass<nftService>,tokenActor :any) => {
     },
   });
 };
-
-async function approvedNFTspending({ amount, nftCanId,tokenActor}: { amount: any,nftCanId : string,tokenActor : any} ){
-   /* const auth = useAuth();
-    const tokenActor = auth?.tokenActors;*/
-   const result = await tokenActor.icrc2_approve({
-    from_subaccount: [],
+async function approvedNFTspending({
+  amount,
+  nftCanId,
+  tokenActor
+}: {
+  amount: number,
+  nftCanId: string,
+  tokenActor: any
+}) {
+  const result = await tokenActor.icrc2_approve({
+    from_subaccount: [], // means default subaccount
     spender: {
       owner: Principal.fromText(nftCanId),
-      subaccount: [],
+      subaccount: [], // also default
     },
-    amount: BigInt(String(amount)),
-    expires_at: [],
-    expected_allowance: [],
+    amount: BigInt(amount),
+    expires_at: [],           // no expiration
+    expected_allowance: [],   // no expected value
+    fee: [],                  // use default fee
+    memo: [],
+    created_at_time: [],
+  });
+
+  console.log("✅ Approved result:", result);
+  return result;
+}
+
+async function transfer({
+  tokenActor,
+  fromPrincipal,
+  toPrincipal,
+  amount,
+}: {
+  tokenActor: any;
+  fromPrincipal: string;
+  toPrincipal: string;
+  amount: number ;
+}) {
+  const result = await tokenActor.icrc2_transfer_from({
+    spender_subaccount: [], 
+    from: {
+      owner: Principal.fromText(fromPrincipal),
+      subaccount: [], 
+    },
+    to: {
+      owner: Principal.fromText(toPrincipal),
+      subaccount: [], 
+    },
+    amount: BigInt(amount),
     fee: [],
     memo: [],
     created_at_time: [],
   });
-  console.log("Result Approved",result);
+
+  console.log("🔁 Transfer result:", result);
+  return result;
 }

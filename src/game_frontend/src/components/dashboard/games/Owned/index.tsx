@@ -12,6 +12,7 @@ const Owned : React.FC<MarketPlaceProps>= ({MarketData}) => {
     <div className='market-grid'>
       {MarketData?.map((data)=>(
         <Market
+        key={data.id}
         id={data.id}
         name={data.name}
         price={data.price}
