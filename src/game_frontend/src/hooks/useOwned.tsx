@@ -17,6 +17,7 @@ export const useOwned = () => {
                 img: nft.metadata.media_url,
                 price: BigInt(nft.price),
             }));
+            console.log("NFTS : ",mappedNft)
             setAllNft(mappedNft)
         } catch (err) {
             console.log("Error fetching nft : ", err);

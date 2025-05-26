@@ -54,5 +54,7 @@ type NFT = {
 };
 
 export const OWNED = (actor : ActorSubclass<nftService> , principal : any)=>{
-    return useQuery<Array<NFT>>('owned' , async()=>api.query(()=>actor.ownedNfts(principal)) as Promise<NFT[]>)
+    return useQuery<Array<NFT>>('owned' , async()=>api.query(()=>actor.ownedNfts(principal)) as Promise<NFT[]>,{
+        enabled : !!principal && !!actor
+    })
 }
